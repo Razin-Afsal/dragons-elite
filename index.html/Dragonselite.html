@@ -1,0 +1,9559 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dragon Elite v9 Ultimate</title>
+<style>
+/* CSS remains exactly as you had it */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Segoe UI;background:radial-gradient(circle at top,#360066,#050511 60%);color:#fff
+touch-action:manipulation;}
+.hidden{display:none!important}
+#auth,#game{min-height:100vh}
+#auth{display:flex;justify-content:center;align-items:center}
+
+.districtHotspot{
+
+position:absolute;
+
+width:45px;
+
+height:45px;
+
+background:transparent;
+
+border:none;
+
+cursor:pointer;
+
+}
+.stateCard{
+
+padding:30px;
+
+margin:15px;
+
+font-size:24px;
+
+font-weight:bold;
+
+border-radius:20px;
+
+cursor:pointer;
+
+text-align:center;
+
+background:#2d2d2d;
+
+border:3px solid #555;
+
+transition:.25s;
+
+}
+
+.stateCard:hover{
+
+transform:scale(1.03);
+
+border-color:gold;
+
+}
+.card,.panel,.box{background:#0d1730cc;backdrop-filter:blur(10px);border:1px solid #3be8ff66;box-shadow:0 0 35px #00d8ff33;border-radius:24px}
+.empireCard{
+
+background:linear-gradient(135deg,#20263d,#111827);
+
+border:2px solid gold;
+
+border-radius:16px;
+
+padding:20px;
+
+margin:20px 0;
+
+color:white;
+
+}
+
+.empireCard h2{
+
+margin-top:0;
+
+color:#FFD54A;
+
+}
+
+.empireStats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:12px;
+
+margin-top:15px;
+
+}
+.card{width:min(100%,400px); padding:28px}
+input,button{padding:13px;border:none;border-radius:14px;margin-top:12px}
+input{width:100%;background:#0a1223;color:#fff}
+button{
+
+cursor:pointer;
+
+background:
+linear-gradient(
+90deg,
+#00c6ff,
+#00ffb7
+);
+
+font-weight:900;
+
+touch-action:
+manipulation;
+
+user-select:
+none;
+
+-webkit-tap-highlight-color:
+transparent;
+
+}
+
+.battleCard{
+
+background:#1b2433;
+
+padding:18px;
+
+margin:15px 0;
+
+border-radius:14px;
+
+border:2px solid #32435e;
+
+}
+
+.battleCard h3{
+
+margin:0 0 10px;
+
+color:#ffd54a;
+
+}
+
+.battleCard button{
+
+margin-top:10px;
+
+width:100%;
+
+padding:12px;
+
+font-size:16px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.pass{position:relative}.eye{
+position:absolute;
+right:16px;
+top:28px;
+cursor:pointer;
+color:white;
+}
+
+#pixelMap{
+
+position:relative;
+
+width:1200px;
+
+height:1800px;
+
+margin:auto;
+
+background:#8fd3ff;
+
+border:3px solid #444;
+
+overflow:hidden;
+
+}
+
+.tile{
+
+position:absolute;
+
+width:8px;
+
+height:8px;
+
+box-sizing:border-box;
+
+cursor:pointer;
+
+transition:.15s;
+
+}
+
+.tile:hover{
+
+filter:brightness(1.25);
+
+outline:1px solid white;
+
+}
+
+#auth input{
+color:white;
+}
+
+#auth input::placeholder{
+color:#ffffffcc;
+}
+
+#msg{
+color:white;
+margin-top:10px;
+font-weight:bold;
+}
+#tab{
+min-height:80px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 24px;
+background:#0008;
+
+flex-wrap:wrap;
+gap:15px;
+}
+.left{
+display:flex;
+gap:20px;
+align-items:center;
+
+flex-wrap:wrap;
+}
+.avatar{width:58px;height:58px;border-radius:50%;border:2px solid gold;cursor:pointer;object-fit:cover}
+.level{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff06d,#ff8800);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#000;font-weight:900}
+#xp{
+width:min(
+100%,
+230px
+);
+}
+.resources,
+.actions{
+
+display:flex;
+
+gap:18px;
+
+padding:24px;
+
+max-width:1100px;
+
+margin:auto;
+
+flex-wrap:wrap;
+
+}
+.box{
+flex:1;
+
+min-width:220px;
+
+text-align:center;
+
+padding:18px;
+}
+.rname{color:#6df;margin-bottom:10px;font-size:13px}
+.popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:#000d;z-index:100}
+.panel{width:92%;max-width:1300px;padding:25px;max-height:90vh;overflow:auto}
+.slice{margin:8px;padding:12px;border-radius:14px}
+.grey{background:#8883}.purple{background:#8040ff66}.blue{background:#00aaff55}.green{background:#00ff8855}.orange{background:#ff990055}.red{background:#ff446655}
+.navBar{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+margin:20px 0;
+
+}
+
+.navBar button{
+
+min-width:120px;
+
+padding:12px;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+.dashBtnWrap{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:6px;
+
+}
+
+.timerText{
+
+font-size:13px;
+
+color:#ffffff;
+
+opacity:.85;
+
+min-height:18px;
+
+}
+
+.timerReady{
+
+color:#44ff88;
+
+font-weight:bold;
+
+}
+
+.timerWaiting{
+
+color:#ffd45e;
+
+}
+#wheelArea{display:flex;flex-direction:column;align-items:center}
+
+#wheelDisc{
+
+width:min(
+85vw,
+300px
+);
+
+height:min(
+85vw,
+300px
+);
+
+border-radius:50%;
+
+background:
+
+conic-gradient(
+
+#999 0 72deg,
+#00ff88 72deg 144deg,
+#00aaff 144deg 216deg,
+#8844ff 216deg 288deg,
+#ff4444 288deg 360deg
+
+);
+
+border:8px solid cyan;
+
+transition:
+
+transform 6s
+cubic-bezier(
+.2,
+1,
+.1,
+1
+);
+
+box-shadow:
+
+0 0 35px cyan;
+
+}
+
+#wheelPointer{
+
+position:absolute;
+
+top:-20px;
+
+left:50%;
+
+transform:
+
+translateX(-50%);
+
+font-size:34px;
+
+}
+
+.spinGlow{
+
+animation:
+glow
+1s
+infinite;
+
+}
+
+@keyframes glow{
+
+0%{
+filter:brightness(1);
+}
+
+50%{
+filter:brightness(1.25);
+}
+
+100%{
+filter:brightness(1);
+}
+
+}
+.gameTitle{
+
+text-align:center;
+
+font-size:32px;
+
+font-weight:bold;
+
+margin:15px 0;
+
+color:#ffd54a;
+
+text-shadow:0 0 10px gold;
+
+letter-spacing:2px;
+
+}
+
+.dragonGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fill,minmax(180px,1fr));
+gap:18px;
+}
+
+.dragonCard{
+position:relative;
+padding:18px;
+border-radius:18px;
+cursor:pointer;
+text-align:center;
+transition:.25s;
+}
+
+.dragonCard:hover{
+transform:translateY(-5px);
+}
+
+.dragonIcon{
+font-size:72px;
+transition:.3s;
+}
+
+.dragonCard.locked .dragonIcon{
+filter:
+grayscale(1)
+brightness(.45);
+}
+
+.dragonCard.locked{
+opacity:.75;
+}
+
+.dragonCard.owned .dragonIcon{
+filter:none;
+}
+
+@keyframes dragonReveal{
+
+0%{
+
+transform:
+scale(.8);
+
+filter:
+brightness(.7);
+
+}
+
+50%{
+
+transform:
+scale(1.2);
+
+filter:
+brightness(1.5);
+
+}
+
+100%{
+
+transform:
+scale(1);
+
+filter:
+brightness(1);
+
+}
+
+}
+
+.dragonCount{
+position:absolute;
+top:8px;
+right:8px;
+
+background:#ffcf33;
+
+color:black;
+
+padding:4px 10px;
+
+border-radius:999px;
+
+font-weight:900;
+
+font-size:13px;
+}
+
+img,
+canvas{
+
+max-width:100%;
+
+}
+
+button,
+input{
+
+max-width:100%;
+
+}
+
+body{
+
+overflow-x:hidden;
+
+}
+
+@media(max-width:768px){
+
+.card{
+
+width:95%;
+
+}
+
+.panel{
+
+width:96%;
+
+}
+
+.left{
+
+flex-direction:column;
+
+}
+
+.resources,
+.actions{
+
+flex-direction:column;
+
+}
+
+.level{
+
+width:52px;
+
+height:52px;
+
+}
+
+#wheelDisc{
+
+width:220px;
+
+height:220px;
+
+}
+
+}
+
+button:active{
+
+transform:
+
+scale(.97);
+
+}
+
+.dragonCard:active{
+
+transform:
+
+scale(.96);
+
+}
+
+.box:active{
+
+transform:
+
+scale(.98);
+
+}
+
+#mapGrid{
+
+display:grid;
+
+/* auto adjusts for phone/tablet */
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+110px,
+1fr
+)
+);
+
+gap:10px;
+
+padding:10px;
+
+width:100%;
+
+box-sizing:border-box;
+
+}
+
+.territory{
+
+background:#444;
+
+border-radius:12px;
+
+padding:14px;
+
+min-height:90px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+font-size:
+
+clamp(
+13px,
+3vw,
+18px
+);
+
+cursor:pointer;
+
+touch-action:
+manipulation;
+
+-webkit-tap-highlight-color:
+transparent;
+
+user-select:
+none;
+
+overflow-wrap:
+break-word;
+
+}
+
+.territory:active{
+
+transform:
+scale(
+0.98
+);
+
+}
+
+#empireMap{
+
+width:100%;
+
+max-width:100vw;
+
+overflow-x:hidden;
+
+}
+
+#actions{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(
+150px,
+1fr
+)
+);
+
+gap:12px;
+
+padding:12px;
+
+width:100%;
+
+}
+
+#actions button{
+
+width:100%;
+
+min-height:54px;
+
+border-radius:14px;
+
+font-size:15px;
+
+padding:10px;
+
+white-space:normal;
+
+}
+
+@media(
+max-width:700px
+){
+
+#actions{
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+}
+
+#actions button{
+
+font-size:14px;
+
+min-height:50px;
+
+}
+
+}
+
+@media(
+max-width:450px
+){
+
+#actions{
+
+grid-template-columns:
+1fr;
+
+}
+
+
+.common{
+background:#345;
+}
+
+.rare{
+background:#248;
+}
+
+.epic{
+background:#7240ff;
+}
+
+.mythic{
+background:#ff8844;
+}
+
+.legendary{
+background:#ffd700;
+}
+
+.cosmic{
+background:#00ffee;
+}
+
+.elite{
+background:#ff2222;
+}
+
+#wheelArea{
+display:none;
+}
+
+
+</style>
+</head>
+<body>
+
+<section id="auth">
+<div class="card">
+<h1
+style="
+color:white;
+text-align:center;
+">
+Dragon Elite
+</h1>
+<input
+id="u"
+type="text">
+<div class="pass">
+<input id="p" type="password" placeholder="Password">
+<div class="eye" onclick="togglePass()">👁</div>
+</div>
+<button id="signup">Create Hero</button>
+<button id="login">Enter Realm</button>
+<div id="msg" style="color:white;font-weight:bold"></div>
+</div>
+</section>
+
+<section id="game" class="hidden">
+<div id="tab">
+<h1 class="gameTitle">🐉 DRAGONSELITE</h1>
+<div class="left">
+<div style="display:flex;align-items:center;gap:10px">
+
+<div id="battleCenter" style="display:none;">
+
+<h2>⚔ Battle Center</h2>
+
+<div class="battleCard">
+
+<h3>🧠 AI Battle</h3>
+
+<p>Fight computer-controlled dragons to earn Coins, XP and Dragons.</p>
+
+<button onclick="startBattleAI()">
+Start AI Battle
+</button>
+
+</div>
+
+<div class="battleCard">
+
+<h3>👤 PvP Duel</h3>
+
+<p>Fight another player's dragon.</p>
+
+<button onclick="startPvPBattle(1)">
+1v1 Battle
+</button>
+
+</div>
+
+<div class="battleCard">
+
+<h3>⚔ PvP Team Battle</h3>
+
+<p>Fight using three dragons.</p>
+
+<button onclick="startPvPBattle(3)">
+3v3 Battle
+</button>
+
+</div>
+
+<div class="battleCard">
+
+<h3>🌍 Territory Battle</h3>
+
+<p>Attack a territory to capture it.</p>
+
+<button onclick="Popup.show('Select a territory from the Empire Map first.')">
+Coming Next
+</button>
+
+</div>
+
+</div>
+
+<div id="user"
+style="
+font-size:18px;
+font-weight:bold;
+color:white;
+"></div>
+
+<img id="avatar" class="avatar">
+
+<input
+hidden
+id="avatarInput"
+type="file"
+accept="image/*">
+
+</div>
+<div class="level">LV<div id="level"></div></div>
+<div id="xp"><div id="xpt"></div><div class="bar"><div id="fill" class="fill"></div></div></div>
+</div>
+<div style="display:flex; gap:10px;">
+<button id="leaderboardBtn" style="width:130px; background:linear-gradient(90deg,#ffae00,#ffd54a); color:black;">🏆 Leaderboard</button>
+<button onclick="openBattleCenter()">
+⚔ Battle
+</button>
+<button onclick="logout()">
+🚪 Logout
+</button>
+</div>
+</div>
+
+<div id="empireStatus"
+style="
+background:#222;
+padding:15px;
+margin:15px;
+border-radius:12px;
+border:2px solid gold;
+">
+
+<h2 id="empireTitle">No Empire</h2>
+
+<div>🏳 Banner: <span id="empireBannerText"></span></div>
+
+<div>🎨 Color: <span id="empireColorText"></span></div>
+
+<div>🗺 Territories: <span id="territoryCount">0</span></div>
+
+<div>👥 Population: <span id="populationCount">0</span></div>
+
+<div>💰 Treasury: <span id="treasuryCount">0</span></div>
+
+<div>📈 Income: <span id="incomeCount">0/min</span></div>
+
+</div>
+
+<div class="resources">
+<div class="resources">
+<div class="box"><div class="rname">COINS</div><h2 id="coins"></h2></div>
+<div class="box"><div class="rname">DIAMONDS</div><h2 id="diamonds"></h2></div>
+<div class="box"><div class="rname">FISH</div><h2 id="fish"></h2></div>
+<div class="box">
+<div class="rname">
+SPINS
+</div>
+
+<div id="empireCard" class="empireCard">
+
+<h2 id="empireTitle">🏰 Empire</h2>
+
+<div class="empireStats">
+
+<div><b>🏳 Banner:</b> <span id="empireBannerText"></span></div>
+
+<div><b>🎨 Color:</b> <span id="empireColorText"></span></div>
+
+<div><b>🗺 Territories:</b> <span id="territoryCount"></span></div>
+
+<div><b>👥 Population:</b> <span id="populationCount"></span></div>
+
+<div><b>💰 Treasury:</b> <span id="treasuryCount"></span></div>
+<div>
+📈 Income:
+<span id="incomeCount">0/min</span>
+</div>
+
+</div>
+
+</div>
+
+
+<h2 id="tokens"></h2>
+<div class="navBar">
+
+
+
+</div>
+</div>
+</div>
+
+<div id="empireMap" style="display:none;padding:15px;">
+
+<h2>🌍 Empire Map</h2>
+
+<div id="mapContainer">
+
+<div id="pixelMap"></div>
+
+</div>
+
+</div>
+
+<div
+style="
+display:flex;
+gap:10px;
+margin-bottom:10px;
+">
+
+<button onclick="zoomMap(1.2)">
+➕ Zoom In
+</button>
+
+<button onclick="zoomMap(0.8)">
+➖ Zoom Out
+</button>
+
+<button onclick="resetMap()">
+🔄 Reset
+</button>
+
+</div>
+
+<div
+id="mapWrapper"
+style="
+overflow:auto;
+border:2px solid #555;
+border-radius:10px;
+">
+
+<object
+id="stateMap"
+data="Districts_of_Kerala.svg"
+type="image/svg+xml"
+width="900"
+height="700">
+</object>
+
+</div>
+
+<button
+class="districtHotspot"
+style="
+left:90px;
+top:90px;
+"
+onclick="openTerritory('kannur')">
+</button>
+</div>
+</object>
+</div>
+</div>
+<div class="actions">
+
+
+<button id="feedbackBtn">💡 Suggest / Report Bug</button>
+<div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+<div style="margin:10px;padding:10px;background:#222;border-radius:10px">
+<div
+id="empireStats"
+style="
+margin:10px;
+padding:10px;
+background:#222;
+border-radius:10px">
+</div>
+</div>
+
+<div style="position:relative">
+
+<div id="wheelPointer">
+▼
+</div>
+
+<div id="wheelDisc"></div>
+
+</div>
+
+<button id="wheel">
+
+🎡 SPIN
+
+</button>
+
+
+
+document
+.getElementById(
+"territoryBtn"
+)
+.onclick=
+openTerritories;
+
+</div>
+<div class="dashBtnWrap">
+
+<button id="chestBtn">
+
+🎁 Chest
+
+</button>
+
+<div
+id="chestTimer"
+class="timerText">
+
+Ready
+
+</div>
+
+</div>
+<button id="dragons">🐉 Dragons</button>
+<button id="shopBtn">🛒 Shop</button>
+<button onclick="openEmpireMap()">
+
+🗺 Empire Map
+
+</button>
+
+</div>
+</section>
+
+<div id="popup" class="popup"><div class="panel" id="panel"></div></div>
+<div id="levelRewardArea"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+
+// =======================================================
+// CONFIG
+// =======================================================
+
+const CONFIG = {
+
+    VERSION: "0.8 MMO",
+
+    AUTO_SAVE_INTERVAL: 30000,
+
+    TERRITORY_INCOME_INTERVAL: 600000,
+
+    MAX_BATTLE_LOG: 50,
+
+    MAP_COLUMNS: 6,
+
+    DEFAULT_TERRITORY_LEVEL: 1
+
+};
+const API = {
+
+async savePlayer(){
+
+    try{
+
+        localStorage.setItem(
+            "dragonelite_player",
+            JSON.stringify(d)
+        );
+
+    }catch(e){
+
+        console.error(e);
+
+    }
+
+},
+
+async loadPlayer(){
+
+    const local =
+    localStorage.getItem(
+        "dragonelite_player"
+    );
+
+    if(local){
+
+        Object.assign(
+            d,
+            JSON.parse(local)
+        );
+
+    }
+
+},
+async loadTerritories(){},
+
+
+async saveTerritory(){},
+
+
+subscribeTerritories(){},
+
+
+subscribeLeaderboard(){},
+
+
+subscribeBattles(){}
+};
+
+const Popup={
+
+show(html){
+
+popupOpen(html);
+
+},
+
+
+close(){
+
+document.getElementById("popup").style.display="none";
+
+},
+
+
+error(msg){
+
+this.show("❌<br><br>"+msg);
+
+},
+
+
+success(msg){
+
+this.show("✅<br><br>"+msg);
+
+}
+
+};
+const ResourceEngine={
+
+addCoins(amount){
+
+d.coins+=amount;
+
+},
+
+
+addXP(amount){
+
+d.xp+=amount;
+
+},
+
+
+addDiamonds(amount){
+
+d.diamonds+=amount;
+
+}
+
+};
+const Empire={
+
+capture(id){
+
+},
+
+income(){
+
+},
+
+population(){
+
+},
+
+upgrade(){
+
+}
+
+};
+const MapEngine={
+
+render(){
+
+},
+
+refresh(){
+
+},
+
+colorTile(){
+
+}
+
+};
+
+
+// ======================================================
+
+// WORLD DATABASE
+
+// ======================================================
+
+
+
+
+// ======================================================
+// TERRITORY FACTORY
+// ======================================================
+
+function showBattleCenter(){
+
+document.getElementById(
+"battleCenter"
+).style.display="block";
+
+}
+
+function openTerritory(id){
+
+const t=TerritoryIndex[id];
+
+popupOpen(`
+
+<h2>${t.name}</h2>
+
+Owner:
+${t.owner||"Unclaimed"}
+
+Population:
+${t.population}
+
+Income:
+${t.tax}
+
+<button onclick="captureTerritory('${id}')">
+
+Capture
+
+</button>
+
+`);
+
+}
+
+function createTerritory(
+    state,
+    name,
+    terrain="Plains",
+    resource="Gold"
+){
+
+    return{
+
+        id:
+        state.toLowerCase()+"-"+name.toLowerCase().replace(/\s+/g,"-"),
+
+        name,
+
+        state,
+
+        owner:null,
+
+        empireColor:null,
+
+        level:CONFIG.DEFAULT_TERRITORY_LEVEL,
+
+        population:1000,
+
+        happiness:80,
+
+        defense:100,
+
+        tax:100,
+
+        treasury:0,
+
+        terrain,
+
+        resource,
+
+        buildings:{
+
+            house:0,
+
+            farm:0,
+
+            market:0,
+
+            mine:0,
+
+            hospital:0,
+
+            fort:0,
+
+            dragonRoost:0
+
+        },
+
+        lastUpdated:0
+
+    };
+
+}
+
+const WORLD = {
+
+  
+ 
+Kerala:[
+
+createTerritory("Kerala","Kasaragod","Coastal","Fish"),
+
+createTerritory("Kerala","Kannur","Coastal","Fish"),
+
+createTerritory("Kerala","Wayanad","Forest","Wood"),
+
+createTerritory("Kerala","Kozhikode","Coastal","Fish"),
+
+createTerritory("Kerala","Malappuram","Plains","Rice"),
+
+createTerritory("Kerala","Palakkad","Plains","Rice"),
+
+createTerritory("Kerala","Thrissur","City","Gold"),
+
+createTerritory("Kerala","Ernakulam","City","Gold"),
+
+createTerritory("Kerala","Idukki","Mountain","Iron"),
+
+createTerritory("Kerala","Kottayam","Forest","Wood"),
+
+createTerritory("Kerala","Alappuzha","Coastal","Fish"),
+
+createTerritory("Kerala","Pathanamthitta","Forest","Wood"),
+
+createTerritory("Kerala","Kollam","Coastal","Fish"),
+
+createTerritory("Kerala","Thiruvananthapuram","City","Gold")
+
+],
+
+   
+
+ Karnataka: [],
+
+    TamilNadu: []
+
+};
+const TERRITORIES = [
+
+    ...WORLD.Kerala,
+
+    ...WORLD.Karnataka,
+
+    ...WORLD.TamilNadu
+
+];
+
+const TerritoryIndex={};
+
+TERRITORIES.forEach(t=>{
+
+    TerritoryIndex[t.id]=t;
+
+});
+
+console.log("Territories:",TERRITORIES.length);
+
+// ======================================================
+// EMPIRE MANAGER
+// ======================================================
+
+const EmpireManager = {
+
+    getOwnedTerritories(player){
+
+        return TERRITORIES.filter(t => t.owner === player);
+
+    },
+
+    getTotalPopulation(player){
+
+        return this.getOwnedTerritories(player)
+
+            .reduce((sum, t) => sum + (t.population || 0), 0);
+
+    },
+
+    getTotalIncome(player){
+
+        return this.getOwnedTerritories(player)
+
+            .reduce((sum, t) => sum + (t.tax || 0), 0);
+
+    }
+
+};
+
+// ======================================================
+// LOGGER
+// ======================================================
+
+const GameLog = {
+
+    logs: [],
+
+    add(message){
+
+        this.logs.unshift({
+
+            time: Date.now(),
+
+            text: message
+
+        });
+
+        if(this.logs.length > CONFIG.MAX_BATTLE_LOG){
+
+            this.logs.pop();
+
+        }
+
+    }
+
+};
+
+const Notifications = {
+
+    push(message){
+
+        console.log(message);
+
+        GameLog.add(message);
+
+    }
+
+};
+
+const Utils = {
+
+    random(min, max){
+
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+
+    },
+
+    clamp(value, min, max){
+
+        return Math.max(min, Math.min(max, value));
+
+    },
+
+    formatNumber(value){
+
+        return Number(value).toLocaleString();
+
+    }
+
+};
+
+// ======================================================
+// RESOURCE MANAGER
+// ======================================================
+
+const ResourceManager = {
+
+    addCoins(amount){
+
+        d.coins = (d.coins || 0) + amount;
+
+    },
+
+    removeCoins(amount){
+
+        d.coins = Math.max(0, (d.coins || 0) - amount);
+
+    },
+
+    addXP(amount){
+
+        d.xp = (d.xp || 0) + amount;
+
+    },
+
+    addDiamonds(amount){
+
+        d.diamonds = (d.diamonds || 0) + amount;
+
+    },
+
+    addFish(amount){
+
+        d.fish = (d.fish || 0) + amount;
+
+    }
+
+};
+
+// ======================================================
+// ECONOMY MANAGER
+// ======================================================
+
+const EconomyManager = {
+
+    collectTerritoryIncome(){
+
+        Object.values(d.territories || {}).forEach(t=>{
+
+            if(!t.owner) return;
+
+            t.money = (t.money || 0) + (t.tax || 0);
+
+        });
+
+    }
+
+};
+
+// ======================================================
+// TIMER MANAGER
+// ======================================================
+
+const TimerManager = {
+
+    timers:{},
+
+    start(name,callback,time){
+
+        this.stop(name);
+
+        this.timers[name]=setInterval(callback,time);
+
+    },
+
+    stop(name){
+
+        if(this.timers[name]){
+
+            clearInterval(this.timers[name]);
+
+            delete this.timers[name];
+
+        }
+
+    }
+
+};
+// ======================================================
+// WORLD MANAGER
+// ======================================================
+
+
+const TERRAIN_TYPES=[
+
+"Coastal",
+
+"Forest",
+
+"Mountain",
+
+"River",
+
+"City",
+
+"Plains"
+
+];
+
+const RESOURCE_TYPES=[
+
+"Fish",
+
+"Wood",
+
+"Iron",
+
+"Stone",
+
+"Rice",
+
+"Gold"
+
+];
+
+const WorldManager={
+
+    initialized:false,
+
+    initialize(){
+
+        if(this.initialized)
+        return;
+
+        this.initialized=true;
+
+        console.log("World Initialized");
+
+    }
+
+};
+
+// ======================
+// MMO CORE ARCHITECTURE
+// ======================
+
+const GAME_STATE = {
+
+user:{
+
+username:"",
+
+loggedIn:false,
+
+ starterPackClaimed:false,empireName:"",
+
+empireColor:"#2196F3",
+
+empireBanner:"🐉"
+
+},
+
+resources:{
+coins:0,
+diamonds:0,
+fish:0,
+tokens:0,
+xp:0,
+level:1,
+territoriesOwned:0,
+
+population:0,
+
+treasury:0
+},
+
+dragons:[],
+
+battle:null,
+
+territories:{},
+
+currentRoom:null,
+
+empireColor:"#00c6ff",
+
+ui:{
+popup:false
+}
+
+};
+
+const EVENTS={
+
+listeners:{},
+
+on(event,fn){
+
+if(!this.listeners[event])
+this.listeners[event]=[];
+
+this.listeners[event].push(fn);
+
+},
+
+emit(event,data){
+
+(this.listeners[event]||[])
+.forEach(fn=>fn(data));
+
+}
+
+};
+
+const BattleEngine={
+
+attack(player,enemy){
+
+const damage=
+
+Math.floor(
+
+player.damage*
+
+(
+0.9+
+Math.random()*0.2
+)
+
+);
+
+enemy.hp=
+
+Math.max(
+0,
+enemy.hp-damage
+);
+
+EVENTS.emit(
+"BATTLE_DAMAGE",
+{
+damage,
+player,
+enemy
+}
+);
+
+return damage;
+
+},
+
+reward(win){
+
+if(!win)
+return;
+
+d.xp+=25;
+
+EVENTS.emit(
+"BATTLE_WIN");
+
+},
+
+capture(territoryId){
+
+if(!territoryId)
+return;
+
+EVENTS.emit(
+"TERRITORY_CAPTURE",
+territoryId
+);
+
+}
+
+};
+
+// --- CORE SETUP ---
+const supabaseUrl =
+'https://ogyksfvearxcepuwjjxb.supabase.co';
+
+const supabaseKey =
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9neWtzZnZlYXJ4Y2VwdXdqanhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMjQzNTAsImV4cCI6MjA5NzYwMDM1MH0.0DOwAk6CTwUs0fXQ59o8EY6q_4-_Z5bOiwRbGXGHP64';
+
+const supabaseClient =
+window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+console.log(supabaseUrl);
+console.log(supabaseKey);
+
+let d = GAME_STATE;
+
+Object.defineProperties(d,{
+
+username:{
+get(){
+return GAME_STATE.user.username;
+},
+set(v){
+GAME_STATE.user.username=v;
+}
+},
+
+coins:{
+get(){
+return GAME_STATE.resources.coins;
+},
+set(v){
+GAME_STATE.resources.coins=v;
+}
+},
+
+diamonds:{
+get(){
+return GAME_STATE.resources.diamonds;
+},
+set(v){
+GAME_STATE.resources.diamonds=v;
+}
+},
+
+fish:{
+get(){
+return GAME_STATE.resources.fish;
+},
+set(v){
+GAME_STATE.resources.fish=v;
+}
+},
+
+tokens:{
+get(){
+return GAME_STATE.resources.tokens;
+},
+set(v){
+GAME_STATE.resources.tokens=v;
+}
+},
+empireName:{
+get(){
+return GAME_STATE.user.empireName;
+},
+set(v){
+GAME_STATE.user.empireName=v;
+}
+},
+
+empireColor:{
+get(){
+return GAME_STATE.user.empireColor;
+},
+set(v){
+GAME_STATE.user.empireColor=v;
+}
+},
+
+empireBanner:{
+get(){
+return GAME_STATE.user.empireBanner;
+},
+set(v){
+GAME_STATE.user.empireBanner=v;
+}
+},
+
+territoriesOwned:{
+get(){
+return GAME_STATE.resources.territoriesOwned;
+},
+set(v){
+GAME_STATE.resources.territoriesOwned=v;
+}
+},
+
+population:{
+get(){
+return GAME_STATE.resources.population;
+},
+set(v){
+GAME_STATE.resources.population=v;
+}
+},
+
+treasury:{
+get(){
+return GAME_STATE.resources.treasury;
+},
+set(v){
+GAME_STATE.resources.treasury=v;
+}
+},
+
+xp:{
+get(){
+return GAME_STATE.resources.xp;
+},
+set(v){
+GAME_STATE.resources.xp=v;
+}
+},
+
+level:{
+get(){
+return GAME_STATE.resources.level;
+},
+set(v){
+GAME_STATE.resources.level=v;
+}
+}
+
+});
+
+const openWheelBtn =
+document.getElementById(
+"openWheel"
+);
+
+if(
+openWheelBtn
+){
+
+openWheelBtn.onclick=
+function(){
+
+popupOpen(
+
+`
+
+<h2>
+🎡 Lucky Wheel
+</h2>
+
+<div>
+
+Available Spins:
+${d.tokens}
+
+</div>
+
+<br>
+
+<div id="wheelArea">
+
+<div id="wheelDisc"></div>
+
+</div>
+
+<br>
+
+<div
+style="
+text-align:left;
+line-height:1.8;
+">
+
+22% → 300 Coins
+
+<br>
+
+14% → 600 Coins
+
+<br>
+
+12% → 150 Fish
+
+<br>
+
+10% → 300 Fish
+
+<br>
+
+9% → 5 Diamonds
+
+<br>
+
+6% → 10 Diamonds
+
+<br>
+
+5% → 1 Spin
+
+<br>
+
+3% → 2 Spins
+
+<br>
+
+4% → 75 XP
+
+<br>
+
+2% → 150 XP
+
+<br>
+
+4% → Random Dragon
+
+<br>
+
+2% → Rare Dragon
+
+<br>
+
+1.5% → 25 Diamonds
+
+<br>
+
+1% → 1000 Coins
+
+<br>
+
+0.5% → Elite Dragon
+
+</div>
+
+<br>
+
+<button
+onclick="spinWheel()">
+
+SPIN
+
+</button>
+
+`
+
+);
+
+};
+
+}
+//================ BATCH 1 DRAGONS ================
+
+const DRAGON_LIBRARY=[
+
+{
+name:"Hungarian Horntail",
+tier:"legendary",
+hp:1568,
+damage:281,
+abilities:[
+{
+name:"Infernal Horn",
+effect:"Deals 180% damage and ignores shields"
+},
+{
+name:"Ash Cyclone",
+effect:"Hits all enemies for medium damage"
+},
+{
+name:"Scale Fortress",
+effect:"Reduce incoming damage by 30% for 2 turns"
+},
+{
+name:"Mountain Rage",
+effect:"Gain damage when HP drops below 50%"
+},
+{
+name:"Skybreaker",
+effect:"Next attack cannot miss"
+}
+],
+icon:"🐉",
+description:
+"A violent mountain dragon feared for relentless aggression and brutal aerial strikes. Its armored scales resist ordinary attacks and its horned head is built for direct impact.\n\nWhen enraged, the Horntail becomes increasingly difficult to stop and grows stronger as battle continues."
+},
+
+{
+name:"Ridgeback",
+tier:"epic",
+hp:918,
+damage:177,
+abilities:[
+{
+name:"Steel Charge",
+effect:"Strike first next turn"
+},
+{
+name:"Spine Burst",
+effect:"Damage increases for every attack received"
+},
+{
+name:"Iron Tail",
+effect:"Deals bonus physical damage"
+}
+],
+icon:"🪨",
+description:
+"Ridgeback overwhelms opponents through relentless pressure and raw endurance. Its heavy dorsal armor stores energy during battle and releases it explosively."
+},
+
+{
+name:"Kora",
+tier:"common",
+hp:372,
+damage:76,
+abilities:[
+{
+name:"Leaf Dash",
+effect:"Small speed increase"
+},
+{
+name:"Wild Recovery",
+effect:"Restore 10% HP"
+}
+],
+icon:"🌿",
+description:
+"Kora is calm and adaptable and is often trusted by beginner tamers. Behind its peaceful nature hides surprising battle potential."
+},
+
+{
+name:"Toothless",
+tier:"legendary",
+hp:1634,
+damage:292,
+abilities:[
+{
+name:"Night Plasma",
+effect:"Deals 200% damage"
+},
+{
+name:"Shadow Flight",
+effect:"Avoid next attack"
+},
+{
+name:"Rapid Strike",
+effect:"Attack twice"
+},
+{
+name:"Dark Dive",
+effect:"Critical chance increased"
+},
+{
+name:"Silent Hunter",
+effect:"First move guaranteed"
+}
+],
+icon:"🌑",
+description:
+"Silent and intelligent, Toothless specializes in precision attacks and rapid movement. Its calm appearance hides explosive bursts of destructive energy."
+},
+
+{
+name:"Solar",
+tier:"cosmic",
+hp:2145,
+damage:311,
+abilities:[
+{
+name:"Sun Core",
+effect:"Increase attack every turn"
+},
+{
+name:"Solar Beam",
+effect:"Deals heavy energy damage"
+},
+{
+name:"Radiant Wings",
+effect:"Reduce enemy accuracy"
+},
+{
+name:"Star Burst",
+effect:"Damage all enemies"
+},
+{
+name:"Dawn Collapse",
+effect:"Massive final strike"
+}
+],
+icon:"☀️",
+description:
+"Solar absorbs energy from light itself and converts it into overwhelming force. Its presence alone brightens battlefields."
+},
+
+{
+name:"Aqua",
+tier:"common",
+hp:488,
+damage:94,
+abilities:[
+{
+name:"Tidal Push",
+effect:"Small water damage"
+},
+{
+name:"Ocean Heal",
+effect:"Restore HP gradually"
+}
+],
+icon:"🌊",
+description:
+"Aqua thrives near rivers and ancient waters. Its attacks become stronger over extended battles."
+},
+
+{
+name:"Cobra",
+tier:"rare",
+hp:654,
+damage:136,
+abilities:[
+{
+name:"Venom Fang",
+effect:"Apply poison"
+},
+{
+name:"Swift Coil",
+effect:"Attack first"
+}
+],
+icon:"🐍",
+description:
+"Fast and difficult to predict, Cobra strikes weak points before opponents can react."
+},
+
+
+{
+name:"Petratos",
+tier:"mythic",
+hp:1186,
+damage:243,
+abilities:[
+{
+name:"Stone Crush",
+effect:"Heavy earth damage"
+},
+{
+name:"Crystal Armor",
+effect:"Reduce incoming damage"
+},
+{
+name:"Titan Force",
+effect:"Increase attack"
+},
+{
+name:"Ancient Echo",
+effect:"Repeat previous ability"
+}
+],
+icon:"💎",
+description:
+"Petratos carries ancient mineral energy throughout its body. Each strike becomes heavier over time."
+},
+
+{
+name:"Dark Devil",
+tier:"elite",
+hp:2910,
+damage:446,
+abilities:[
+{
+name:"Hell Collapse",
+effect:"Massive area damage"
+},
+{
+name:"Devil Aura",
+effect:"Reduce enemy attack"
+},
+{
+name:"Dark Pulse",
+effect:"Ignore defense"
+},
+{
+name:"Soul Drain",
+effect:"Steal HP"
+},
+{
+name:"Nightfall",
+effect:"Disable enemy ability"
+},
+{
+name:"Final Catastrophe",
+effect:"Extreme damage"
+}
+],
+icon:"😈",
+description:
+"Dark Devil represents chaos and domination. Very few dragons survive encounters against it."
+},
+
+{
+name:"Alpha",
+tier:"legendary",
+hp:1691,
+damage:298,
+abilities:[
+{
+name:"Command Roar",
+effect:"Boost all allies"
+},
+{
+name:"King Strike",
+effect:"Heavy damage"
+},
+{
+name:"Leader Aura",
+effect:"Increase defense"
+},
+{
+name:"Absolute Order",
+effect:"Enemy attack reduced"
+},
+{
+name:"Final Authority",
+effect:"Power increases each turn"
+}
+],
+icon:"👑",
+description:
+"Alpha commands respect naturally and influences nearby dragons. Its dominance grows with every victory."
+},
+{
+name:"Pilius",
+tier:"common",
+hp:286,
+damage:55,
+abilities:[
+{
+name:"Feather Rush",
+effect:"Deal light damage and gain speed"
+}
+],
+icon:"🪶",
+description:
+"Pilius is a lightweight sky dragon known for sudden movement and surprising adaptability.\n\nAlthough often ignored by stronger species, its unpredictability makes it difficult to corner."
+},
+
+{
+name:"Ember",
+tier:"rare",
+hp:621,
+damage:122,
+abilities:[
+{
+name:"Burning Claw",
+effect:"Apply burn for 2 turns"
+},
+{
+name:"Heat Pulse",
+effect:"Increase attack by 15%"
+}
+],
+icon:"🔥",
+description:
+"Ember stores heat deep within its scales and releases it through concentrated strikes.\n\nIts flames become hotter the longer battle continues."
+},
+
+{
+name:"Lucio",
+tier:"common",
+hp:318,
+damage:71,
+abilities:[
+{
+name:"Flash Glide",
+effect:"Gain dodge chance"
+},
+{
+name:"Bright Scale",
+effect:"Reduce enemy accuracy"
+}
+],
+icon:"✨",
+description:
+"Lucio is curious and energetic, preferring exploration over direct conflict.\n\nIts speed often decides battles before power becomes relevant."
+},
+
+{
+name:"Shimo",
+tier:"cosmic",
+hp:2284,
+damage:316,
+abilities:[
+{
+name:"Absolute Zero",
+effect:"Freeze enemy actions"
+},
+{
+name:"Ice Crown",
+effect:"Reduce damage taken"
+},
+{
+name:"Frozen Horizon",
+effect:"Damage all enemies"
+},
+{
+name:"White Storm",
+effect:"Increase critical chance"
+},
+{
+name:"Glacial Collapse",
+effect:"Massive ice damage"
+}
+],
+icon:"❄️",
+description:
+"Shimo rules ancient frozen regions and bends entire climates to its will.\n\nWhen awakened, battlefields transform into endless winter."
+},
+
+{
+name:"Comms",
+tier:"common",
+hp:269,
+damage:49,
+abilities:[
+{
+name:"Signal Cry",
+effect:"Boost ally speed"
+}
+],
+icon:"📡",
+description:
+"Comms thrives in groups and coordinates movement with unmatched precision.\n\nIts support changes the flow of battle."
+},
+
+{
+name:"Alpha",
+tier:"legendary",
+hp:1691,
+damage:298,
+abilities:[
+{
+name:"Command Roar",
+effect:"Boost allies"
+},
+{
+name:"King Strike",
+effect:"Heavy damage"
+},
+{
+name:"Dominance",
+effect:"Lower enemy attack"
+},
+{
+name:"Royal Guard",
+effect:"Increase defense"
+},
+{
+name:"Final Authority",
+effect:"Power grows each turn"
+}
+],
+icon:"👑",
+description:
+"Alpha naturally commands nearby dragons and influences battlefield morale.\n\nIts victories become stories repeated across generations."
+},
+
+{
+name:"Maxwell",
+tier:"rare",
+hp:668,
+damage:137,
+abilities:[
+{
+name:"Arc Spark",
+effect:"Electric damage"
+},
+{
+name:"Energy Flow",
+effect:"Restore small HP"
+}
+],
+icon:"⚡",
+description:
+"Maxwell converts energy into rapid attacks and constant pressure.\n\nIts movements resemble controlled lightning."
+},
+
+{
+name:"Crystal",
+tier:"epic",
+hp:972,
+damage:194,
+abilities:[
+{
+name:"Shard Rain",
+effect:"Area crystal damage"
+},
+{
+name:"Mirror Armor",
+effect:"Reflect 20% damage"
+},
+{
+name:"Prism Beam",
+effect:"Critical strike"
+}
+],
+icon:"💠",
+description:
+"Crystal dragons form armor from compressed mineral energy.\n\nTheir elegance hides exceptional battlefield durability."
+},
+
+{
+name:"Hydros",
+tier:"mythic",
+hp:1260,
+damage:247,
+abilities:[
+{
+name:"Tidal Crush",
+effect:"Heavy water damage"
+},
+{
+name:"Deep Heal",
+effect:"Restore HP"
+},
+{
+name:"Ocean Command",
+effect:"Reduce enemy speed"
+},
+{
+name:"Blue Abyss",
+effect:"Damage increases over time"
+}
+],
+icon:"🌊",
+description:
+"Hydros rules deep ancient waters and carries immense hidden force.\n\nFew enemies can survive prolonged combat against it."
+},
+
+{
+name:"Viper",
+tier:"rare",
+hp:612,
+damage:128,
+abilities:[
+{
+name:"Poison Bite",
+effect:"Apply poison"
+},
+{
+name:"Quick Fang",
+effect:"Strike first"
+}
+],
+icon:"☠️",
+description:
+"Viper specializes in precision attacks and gradual enemy collapse.\n\nIts victories often arrive before enemies realize they are losing."
+},
+{
+name:"Chorus",
+tier:"common",
+hp:334,
+damage:68,
+abilities:[
+{
+name:"Echo Pulse",
+effect:"Repeat previous normal attack for 50% damage"
+},
+{
+name:"Harmony Wing",
+effect:"Increase speed for 2 turns"
+}
+],
+icon:"🎵",
+description:
+"Chorus communicates through layered vibrations that travel across long distances. Other dragons often gather around its presence.\n\nIts songs hide unusual combat rhythms that confuse opponents and strengthen allies."
+},
+
+{
+name:"Bolt",
+tier:"rare",
+hp:691,
+damage:139,
+abilities:[
+{
+name:"Thunder Dash",
+effect:"Attack first and deal bonus damage"
+},
+{
+name:"Static Surge",
+effect:"Increase damage by 20%"
+}
+],
+icon:"⚡",
+description:
+"Bolt moves with explosive speed and leaves bright electrical trails behind.\n\nMost enemies lose before they fully react to its movement."
+},
+
+{
+name:"Chase",
+tier:"common",
+hp:382,
+damage:88,
+abilities:[
+{
+name:"Pursuit",
+effect:"Deal extra damage to weakened enemies"
+},
+{
+name:"Quick Step",
+effect:"Increase dodge chance"
+}
+],
+icon:"🏹",
+description:
+"Chase specializes in relentless pursuit and constant pressure. Once locked onto a target, it rarely gives up.\n\nIts endurance often outlasts stronger dragons."
+},
+
+{
+name:"Silver",
+tier:"epic",
+hp:924,
+damage:184,
+abilities:[
+{
+name:"Silver Rain",
+effect:"Hit all enemies"
+},
+{
+name:"Mirror Scale",
+effect:"Reflect part of incoming damage"
+},
+{
+name:"Moon Fang",
+effect:"Critical strike"
+}
+],
+icon:"🌙",
+description:
+"Silver dragons are admired for elegance and battlefield control.\n\nTheir polished scales conceal remarkable combat instincts."
+},
+
+{
+name:"Jumbo",
+tier:"rare",
+hp:678,
+damage:126,
+abilities:[
+{
+name:"Heavy Crush",
+effect:"Deal heavy physical damage"
+},
+{
+name:"Stone Belly",
+effect:"Reduce damage received"
+}
+],
+icon:"🦴",
+description:
+"Jumbo dominates using size rather than speed. Every step shakes the battlefield.\n\nThough slow, its attacks carry immense force."
+},
+
+{
+name:"Roam",
+tier:"common",
+hp:278,
+damage:58,
+abilities:[
+{
+name:"Explorer's Leap",
+effect:"Gain movement and dodge"
+}
+],
+icon:"🧭",
+description:
+"Roam wanders endlessly and adapts to unfamiliar environments.\n\nIts unpredictable behavior makes encounters difficult to control."
+},
+
+{
+name:"Dynamite",
+tier:"epic",
+hp:994,
+damage:199,
+abilities:[
+{
+name:"Blast Core",
+effect:"Heavy explosive damage"
+},
+{
+name:"Burn Wave",
+effect:"Apply burn"
+},
+{
+name:"Overheat",
+effect:"Increase attack but lose small HP"
+}
+],
+icon:"💥",
+description:
+"Dynamite stores unstable energy beneath its armor.\n\nIts attacks become increasingly dangerous the longer combat continues."
+},
+
+{
+name:"Rheagul",
+tier:"mythic",
+hp:1224,
+damage:252,
+abilities:[
+{
+name:"Royal Flame",
+effect:"Massive fire damage"
+},
+{
+name:"Ancient Rise",
+effect:"Restore HP"
+},
+{
+name:"Dragon Crest",
+effect:"Boost attack"
+},
+{
+name:"Empire Fall",
+effect:"Reduce enemy defense"
+}
+],
+icon:"🔥",
+description:
+"Rheagul belongs to forgotten legends and carries the presence of ancient rulers.\n\nEvery battle fought by Rheagul feels larger than life."
+},
+
+{
+name:"Viserion",
+tier:"legendary",
+hp:1482,
+damage:287,
+abilities:[
+{
+name:"Frozen Breath",
+effect:"Freeze enemy"
+},
+{
+name:"Sky Descent",
+effect:"Heavy aerial damage"
+},
+{
+name:"Cold Crown",
+effect:"Reduce enemy attack"
+},
+{
+name:"Dragon Wrath",
+effect:"Increase critical rate"
+},
+{
+name:"Final Frost",
+effect:"Massive ice strike"
+}
+],
+icon:"❄️",
+description:
+"Viserion combines elegance with overwhelming destructive power.\n\nIts chilling attacks leave silence behind."
+},
+
+{
+name:"Meleys",
+tier:"legendary",
+hp:1619,
+damage:296,
+abilities:[
+{
+name:"Red Storm",
+effect:"Area fire damage"
+},
+{
+name:"Queen Flight",
+effect:"Act first next turn"
+},
+{
+name:"Battle Grace",
+effect:"Increase dodge"
+},
+{
+name:"Scarlet Talon",
+effect:"Critical strike"
+},
+{
+name:"Royal Blaze",
+effect:"Massive fire damage"
+}
+],
+icon:"❤️",
+description:
+"Meleys is known for speed, intelligence, and overwhelming aerial dominance.\n\nVery few dragons can match its battlefield control."
+},
+
+{
+name:"Meraxes",
+tier:"legendary",
+hp:1588,
+damage:294,
+abilities:[
+{
+name:"Royal Inferno",
+effect:"Heavy fire damage"
+},
+{
+name:"Sky Dominion",
+effect:"Act first next turn"
+},
+{
+name:"Crimson Sweep",
+effect:"Damage all enemies"
+},
+{
+name:"Flame Crown",
+effect:"Increase attack"
+},
+{
+name:"Final Eclipse",
+effect:"Massive finishing strike"
+}
+],
+icon:"🔥",
+description:
+"Meraxes ruled ancient skies with overwhelming speed and burning force. Entire armies changed course rather than face it.\n\nIts movements appear elegant until the moment destruction arrives."
+},
+
+{
+name:"Seasmoke",
+tier:"epic",
+hp:938,
+damage:188,
+abilities:[
+{
+name:"Mist Veil",
+effect:"Increase dodge"
+},
+{
+name:"Wave Break",
+effect:"Water damage"
+},
+{
+name:"Hidden Current",
+effect:"Reduce enemy accuracy"
+}
+],
+icon:"🌫️",
+description:
+"Seasmoke drifts silently across oceans and appears without warning.\n\nIts attacks arrive hidden beneath rolling clouds and sea spray."
+},
+
+{
+name:"Caraxes",
+tier:"legendary",
+hp:1668,
+damage:299,
+abilities:[
+{
+name:"Blood Wing",
+effect:"Critical damage"
+},
+{
+name:"War Cry",
+effect:"Boost attack"
+},
+{
+name:"Serpent Strike",
+effect:"Heavy damage"
+},
+{
+name:"Red Tempest",
+effect:"Area damage"
+},
+{
+name:"Battle Hunger",
+effect:"Gain attack after each hit"
+}
+],
+icon:"🩸",
+description:
+"Caraxes is feared for relentless aggression and terrifying battle instincts.\n\nEnemies often break formation before combat begins."
+},
+
+{
+name:"Vhagar",
+tier:"elite",
+hp:2846,
+damage:451,
+abilities:[
+{
+name:"Ancient Flame",
+effect:"Massive fire damage"
+},
+{
+name:"Titan Wing",
+effect:"Reduce incoming damage"
+},
+{
+name:"Dragon King's Roar",
+effect:"Lower enemy attack"
+},
+{
+name:"Cataclysm",
+effect:"Area devastation"
+},
+{
+name:"Ancient Wrath",
+effect:"Increase power each turn"
+},
+{
+name:"Final Skyfall",
+effect:"Extreme damage"
+}
+],
+icon:"👑",
+description:
+"Vhagar stands among the most feared dragons ever known. Its presence alone changes battle outcomes.\n\nLegends describe entire kingdoms falling beneath its shadow."
+},
+
+{
+name:"Vermithor",
+tier:"legendary",
+hp:1631,
+damage:286,
+abilities:[
+{
+name:"Bronze Blaze",
+effect:"Burn enemies"
+},
+{
+name:"Heavy Sweep",
+effect:"Area damage"
+},
+{
+name:"Royal Scale",
+effect:"Increase defense"
+},
+{
+name:"Molten Breath",
+effect:"Heavy fire damage"
+},
+{
+name:"Old King's Fury",
+effect:"Power increases"
+}
+],
+icon:"🥇",
+description:
+"Vermithor carries old strength and unmatched endurance.\n\nIts battles are remembered for decades."
+},
+
+{
+name:"Balerion",
+tier:"elite",
+hp:2974,
+damage:479,
+abilities:[
+{
+name:"Black Flame",
+effect:"Extreme fire damage"
+},
+{
+name:"World Burn",
+effect:"Damage all enemies"
+},
+{
+name:"Shadow Wing",
+effect:"Increase dodge"
+},
+{
+name:"Dark Crown",
+effect:"Increase attack"
+},
+{
+name:"Ancient Dominance",
+effect:"Reduce enemy defense"
+},
+{
+name:"Doomfall",
+effect:"Massive final damage"
+}
+],
+icon:"🌑",
+description:
+"Balerion is remembered as a dragon of impossible scale and overwhelming destruction.\n\nStories claim entire cities vanished beneath its fire."
+},
+
+{
+name:"Saskia",
+tier:"mythic",
+hp:1189,
+damage:242,
+abilities:[
+{
+name:"Golden Arc",
+effect:"Heavy damage"
+},
+{
+name:"Dragon Grace",
+effect:"Increase speed"
+},
+{
+name:"Solar Fang",
+effect:"Critical strike"
+},
+{
+name:"Sky Blessing",
+effect:"Restore HP"
+}
+],
+icon:"☀️",
+description:
+"Saskia combines elegance with deadly precision.\n\nIts calm nature disappears completely once battle begins."
+},
+
+{
+name:"Thunderbird",
+tier:"cosmic",
+hp:2171,
+damage:312,
+abilities:[
+{
+name:"Storm Rise",
+effect:"Area lightning"
+},
+{
+name:"Thunder Cry",
+effect:"Reduce enemy speed"
+},
+{
+name:"Volt Crown",
+effect:"Increase attack"
+},
+{
+name:"Sky Crash",
+effect:"Massive damage"
+},
+{
+name:"Infinite Storm",
+effect:"Heavy electric damage"
+}
+],
+icon:"⚡",
+description:
+"Thunderbird controls impossible storms and commands lightning through movement alone.\n\nThe skies respond to its presence."
+},
+
+{
+name:"Mara",
+tier:"rare",
+hp:603,
+damage:118,
+abilities:[
+{
+name:"Silent Wing",
+effect:"Increase dodge"
+},
+{
+name:"Dark Slash",
+effect:"Extra damage"
+}
+],
+icon:"🖤",
+description:
+"Mara prefers silence and calculated strikes.\n\nIts attacks arrive quickly and disappear just as fast."
+},
+
+{
+name:"Rockrius",
+tier:"epic",
+hp:981,
+damage:196,
+abilities:[
+{
+name:"Earth Break",
+effect:"Heavy earth damage"
+},
+{
+name:"Stone Armor",
+effect:"Reduce damage"
+},
+{
+name:"Mountain Crash",
+effect:"Area damage"
+}
+],
+icon:"🪨",
+description:
+"Rockrius fights with patience and overwhelming force.\n\nIts body feels more like moving terrain than a living dragon."
+},
+/* ===== DRAGON BATCH 5 ===== */
+
+{
+name:"Cocovira",
+tier:"rare",
+hp:641,
+damage:133,
+abilities:[
+{
+name:"Palm Burst",
+effect:"Deal nature damage"
+},
+{
+name:"Shell Guard",
+effect:"Reduce damage received"
+},
+{
+name:"Fruit Surge",
+effect:"Restore small HP"
+}
+],
+icon:"🥥",
+description:
+"Cocovira evolved on remote tropical islands and developed unusual defensive abilities.\n\nIts calm appearance hides a surprisingly durable fighter."
+},
+
+{
+name:"Sauriam",
+tier:"epic",
+hp:946,
+damage:187,
+abilities:[
+{
+name:"Ancient Fang",
+effect:"Heavy damage"
+},
+{
+name:"Prime Roar",
+effect:"Lower enemy defense"
+},
+{
+name:"Scale Burst",
+effect:"Increase attack"
+}
+],
+icon:"🦎",
+description:
+"Sauriam belongs to a very old dragon bloodline and prefers direct confrontation.\n\nEvery movement feels ancient and deliberate."
+},
+
+{
+name:"Tigrilla",
+tier:"rare",
+hp:689,
+damage:137,
+abilities:[
+{
+name:"Striped Leap",
+effect:"Attack first"
+},
+{
+name:"Predator Rush",
+effect:"Extra damage to weakened enemies"
+}
+],
+icon:"🐯",
+description:
+"Tigrilla combines feline agility with dragon aggression.\n\nIts fast strikes make prolonged battles dangerous."
+},
+
+{
+name:"Dexyn",
+tier:"mythic",
+hp:1244,
+damage:255,
+abilities:[
+{
+name:"Phase Blade",
+effect:"Ignore defense"
+},
+{
+name:"Energy Shift",
+effect:"Increase speed"
+},
+{
+name:"Nova Slash",
+effect:"Heavy energy damage"
+},
+{
+name:"Overcharge",
+effect:"Increase attack"
+}
+],
+icon:"💠",
+description:
+"Dexyn manipulates pure energy rather than elemental power.\n\nIts combat style feels unnatural even among dragons."
+},
+
+{
+name:"Geliklen",
+tier:"common",
+hp:397,
+damage:92,
+abilities:[
+{
+name:"Ice Flick",
+effect:"Small ice damage"
+}
+],
+icon:"🧊",
+description:
+"Geliklen survives harsh climates and slowly adapts to stronger opponents.\n\nYoung dragons often train against it."
+},
+
+{
+name:"Venu",
+tier:"rare",
+hp:622,
+damage:129,
+abilities:[
+{
+name:"Wind Pierce",
+effect:"Increase critical chance"
+},
+{
+name:"Swift Current",
+effect:"Increase speed"
+}
+],
+icon:"🌪️",
+description:
+"Venu moves through air currents effortlessly.\n\nIts attacks feel impossible to predict."
+},
+
+{
+name:"Magmpie",
+tier:"epic",
+hp:999,
+damage:198,
+abilities:[
+{
+name:"Molten Core",
+effect:"Apply burn"
+},
+{
+name:"Lava Burst",
+effect:"Area fire damage"
+},
+{
+name:"Heat Armor",
+effect:"Reduce damage"
+}
+],
+icon:"🌋",
+description:
+"Magmpie contains unstable volcanic energy beneath hardened scales.\n\nIts strongest attacks reshape the battlefield."
+},
+
+{
+name:"Ender",
+tier:"cosmic",
+hp:2236,
+damage:319,
+abilities:[
+{
+name:"Void Step",
+effect:"Avoid next attack"
+},
+{
+name:"Shadow Rift",
+effect:"Heavy dark damage"
+},
+{
+name:"Night Collapse",
+effect:"Reduce enemy power"
+},
+{
+name:"End Pulse",
+effect:"Area damage"
+},
+{
+name:"Infinite Void",
+effect:"Massive finishing damage"
+}
+],
+icon:"🖤",
+description:
+"Ender appears where reality feels unstable.\n\nVery few dragons willingly challenge it."
+},
+
+{
+name:"Numihe",
+tier:"common",
+hp:342,
+damage:76,
+abilities:[
+{
+name:"Bright Wing",
+effect:"Restore small HP"
+},
+{
+name:"Light Drift",
+effect:"Increase dodge"
+}
+],
+icon:"🌤️",
+description:
+"Numihe is peaceful but unexpectedly resilient.\n\nIts gentle nature hides impressive endurance."
+},
+
+{
+name:"Obsidrake",
+tier:"legendary",
+hp:1674,
+damage:300,
+abilities:[
+{
+name:"Obsidian Breath",
+effect:"Heavy dark damage"
+},
+{
+name:"Shadow Armor",
+effect:"Reduce damage"
+},
+{
+name:"Volcanic Rise",
+effect:"Increase attack"
+},
+{
+name:"Dark Meteor",
+effect:"Area damage"
+},
+{
+name:"Night Emperor",
+effect:"Massive critical strike"
+}
+],
+icon:"🌑",
+description:
+"Obsidrake emerged from volcanic ruins and became a symbol of destruction.\n\nIts appearance alone unsettles weaker dragons."
+}
+
+];
+
+// ===============================
+// 🐉 DRAGON ENGINE UPGRADE CORE
+// ===============================
+
+const DRAGON_TIERS = {
+    common:    { hp: [250, 450],  dmg: [40, 90],   weight: 40 },
+    rare:      { hp: [500, 750],  dmg: [95, 140],  weight: 25 },
+    epic:      { hp: [800, 1100], dmg: [150, 200], weight: 15 },
+    mythic:    { hp: [1150, 1400],dmg: [210, 260], weight: 10 },
+    legendary: { hp: [1450, 1750],dmg: [270, 320], weight: 6 },
+    cosmic:    { hp: [2000, 2300],dmg: [300, 340], weight: 3 },
+    elite:     { hp: [2800, 3200],dmg: [420, 500], weight: 1 }
+};
+
+// 🎯 weighted tier picker (controls rarity properly)
+
+function renderPixelMap(){
+
+const map=document.getElementById("pixelMap");
+
+map.innerHTML="";
+
+Object.keys(MAP).forEach(id=>{
+
+const t=TerritoryIndex[id];
+
+MAP[id].forEach(([x,y])=>{
+
+const tile=document.createElement("div");
+
+tile.className="tile";
+
+tile.style.left=(x*8)+"px";
+
+tile.style.top=(y*8)+"px";
+
+tile.style.background=
+t.owner==d.username
+?
+d.empireColor
+:
+"#5d8c5d";
+
+tile.onclick=()=>openTerritory(id);
+
+map.appendChild(tile);
+
+});
+
+});
+
+}
+
+function giveStarterPack(){
+
+    // Only give once
+    if(d.starterPackClaimed)
+        return;
+
+    const commons = DRAGON_LIBRARY.filter(
+        x=>x.tier==="common"
+    );
+
+    const dragon =
+    commons[
+        Math.floor(
+            Math.random()*commons.length
+        )
+    ];
+
+    collectDragon(dragon.name);
+
+    d.coins += 500;
+    d.diamonds += 10;
+    d.tokens += 3;
+
+    d.starterPackClaimed = true;
+
+    savePlayer();
+
+    popupOpen(`
+
+<h2>🎉 Welcome to Dragonselite!</h2>
+
+You received:
+
+<br><br>
+
+🐉 <b>${dragon.name}</b>
+
+<br>
+
+💰 500 Coins
+
+<br>
+
+💎 10 Diamonds
+
+<br>
+
+🎡 3 Spin Tokens
+
+`);
+
+}
+
+
+function createEmpire(){
+
+const name =
+document
+.getElementById("empireName")
+.value
+.trim();
+
+if(!name){
+
+popupOpen("Enter an Empire Name.");
+
+return;
+
+}
+
+d.empireName=name;
+
+d.empireColor=
+document
+.getElementById("empireColor")
+.value;
+
+d.empireBanner=
+document
+.getElementById("empireBanner")
+.value;
+
+savePlayer();
+
+Popup.success("Empire Created!");
+
+render();
+
+}
+
+function openEmpireSetup(){
+
+popupOpen(`
+
+
+<h2>
+
+🏰 Create Your Empire
+
+</h2>
+
+<p>
+
+Choose your Empire's identity.
+
+</p>
+
+<input
+id="empireName"
+placeholder="Empire Name"
+style="width:100%;padding:10px;margin:8px 0;">
+<label>
+
+Empire Colour
+
+</label>
+
+<input
+
+type="color"
+
+id="empireColor"
+
+value="#2196F3"
+
+style="
+width:100%;
+height:50px;
+margin:10px 0;
+cursor:pointer;
+">
+
+
+<label>
+
+Empire Banner
+
+</label>
+
+<input
+
+type="file"
+
+id="empireBanner"
+
+accept="image/*"
+
+style="
+width:100%;
+margin:10px 0;
+"><br><br>
+
+<button
+onclick="createEmpire()">
+
+Create Empire
+
+</button>
+
+`);
+
+}
+
+function showReward(text){
+
+    if (!d || !d.username) return;
+
+    popupOpen(text);
+}
+function pickWeightedTier(){
+    let pool = [];
+
+    for (let tier in DRAGON_TIERS) {
+        let weight = DRAGON_TIERS[tier].weight;
+        for (let i = 0; i < weight; i++) {
+            pool.push(tier);
+        }
+    }
+
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// 🧬 generate stats based on tier (future-safe system)
+function generateDragonStats(tier){
+    const t = DRAGON_TIERS[tier];
+
+    const hp = Math.floor(
+        t.hp[0] + Math.random() * (t.hp[1] - t.hp[0])
+    );
+
+    const damage = Math.floor(
+        t.dmg[0] + Math.random() * (t.dmg[1] - t.dmg[0])
+    );
+
+    return { hp, damage };
+}
+
+// 🐲 safe dragon generator (future battle-ready)
+function generateDragon(){
+    const tier = pickWeightedTier();
+
+    const stats = generateDragonStats(tier);
+
+    const pool = DRAGON_LIBRARY.filter(d => d.tier === tier);
+
+    if(pool.length === 0){
+        return null;
+    }
+
+    const base = pool[Math.floor(Math.random() * pool.length)];
+
+    return {
+        ...base,
+        hp: stats.hp,
+        damage: stats.damage
+    };
+}
+
+// 🎁 override-safe reward dragon system (DO NOT REMOVE OLD ONE YET)
+function getRandomDragonReward(){
+    return generateDragon();
+}
+
+
+
+
+function popupOpen(content){
+
+if(!d.username)
+return;
+
+const popup=
+document.getElementById("popup");
+
+const panel=
+document.getElementById("panel");
+
+panel.innerHTML="";
+
+const wrap=
+document.createElement("div");
+
+wrap.innerHTML=content;
+
+panel.appendChild(wrap);
+
+panel.insertAdjacentHTML(
+
+"beforeend",
+
+`
+<br><br>
+
+<button
+style="width:100%"
+onclick="closePopup()">
+
+Close
+
+</button>
+
+`
+);
+
+popup.style.display="flex";
+
+EVENTS.emit(
+"popup_open"
+);
+
+}
+
+function closePopup(){
+
+document
+.getElementById(
+"popup"
+)
+.style.display="none";
+
+}
+
+function openEmpireMap(){
+
+const map =
+document.getElementById("empireMap");
+
+if(!map)
+return;
+
+map.style.display="block";
+
+map.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function renderMap(){
+
+const map=document.getElementById("pixelMap");
+
+if(!map) return;
+
+map.innerHTML="";
+
+Object.keys(MAP).forEach(id=>{
+
+const territory=TerritoryIndex[id];
+
+if(!territory) return;
+
+MAP[id].forEach(([x,y])=>{
+
+const tile=document.createElement("div");
+
+tile.className="tile";
+
+tile.style.left=(x*8)+"px";
+
+tile.style.top=(y*8)+"px";
+
+tile.style.background=
+
+territory.owner==d.username
+
+?
+
+(d.empireColor||"#00aa00")
+
+:
+
+"#666";
+
+tile.onclick=()=>openTerritory(id);
+
+map.appendChild(tile);
+
+});
+
+});
+
+}
+let mapZoom = 1;
+
+function zoomMap(amount){
+
+mapZoom *= amount;
+
+document
+.getElementById("stateMap")
+.style.transform =
+`scale(${mapZoom})`;
+
+}
+
+function resetMap(){
+
+mapZoom = 1;
+
+document
+.getElementById("stateMap")
+.style.transform =
+"scale(1)";
+
+}
+
+function changeMap(){
+
+const map =
+document.getElementById("stateMap");
+
+const file =
+document.getElementById("stateSelector").value;
+
+map.data = file;
+
+}
+
+function openState(state){
+
+switch(state){
+
+case "kerala":
+
+window.open(
+"Districts_of_Kerala.svg",
+"_blank"
+);
+
+break;
+
+case "karnataka":
+
+window.open(
+"Karnataka_district_map_-_Updated.svg",
+"_blank"
+);
+
+break;
+
+case "tamilnadu":
+
+window.open(
+"Map_of_Tamil_Nadu_districts.svg",
+"_blank"
+);
+
+break;
+
+}
+
+}
+
+function render(){
+
+let pop=0;
+let treasury=0;
+let income=0;
+
+Object.values(TerritoryIndex).forEach(t=>{
+
+    if(t.owner!==d.username)
+        return;
+
+    pop+=t.population||0;
+    treasury+=t.treasury||0;
+    income+=t.income||0;
+
+});
+
+d.population=pop;
+d.treasury=treasury;
+d.totalIncome=income;
+
+let totalPop = 0;
+let totalIncome = 0;
+
+Object.values(d.territories || {}).forEach(t=>{
+    totalPop += t.population;
+    totalIncome += t.money;
+});
+
+
+const playerName =
+
+d.username
+&&
+d.username.trim()
+
+?
+
+d.username
+
+:
+
+" Muhammad Razin Afsal";
+
+
+
+if(!document.getElementById('user'))
+return;
+
+document.getElementById('user').innerHTML=d.username;
+
+coins.innerHTML=
+`<span style="color:gold">${d.coins}</span>`;
+
+diamonds.innerHTML=
+`<span style="color:#33ccff">${d.diamonds}</span>`;
+
+fish.innerHTML=
+`<span style="color:cyan">${d.fish}</span>`;
+
+document.getElementById('tokens').innerHTML=d.tokens;
+
+if(d.rewardStats){
+
+document.getElementById('tokens').innerHTML+=
+"<br><small>⭐ "
++
+(d.rewardStats.shards||0)
++
+" shards</small>";
+
+}
+document.getElementById("empireTitle").innerHTML =
+d.empireBanner + " " + d.empireName;
+
+document.getElementById("empireBannerText").innerHTML =
+d.empireBanner;
+
+document.getElementById("empireColorText").innerHTML =
+d.empireColor;
+
+document.getElementById("territoryCount").innerHTML =
+d.territoriesOwned;
+
+document.getElementById("populationCount").innerHTML =
+d.population ?? 0;
+document.getElementById("treasuryCount").innerHTML =
+d.treasury ?? 0;
+
+document.getElementById('level').innerHTML=d.level;
+
+
+const maxXP =
+Math.floor(
+Math.pow(d.level,1.5)*100
+);
+
+
+document.getElementById("xpt").innerHTML =
+"XP " + d.xp + "/" + maxXP;
+
+document.getElementById("fill").style.width =
+(d.xp/maxXP)*100 + "%";
+
+renderLevelRewardButton();
+
+document.getElementById(
+"empireStats"
+).innerHTML=
+
+`
+🏙 Empire Stats<br><br>
+
+👥 Population:
+${totalPop}
+
+<br>
+
+🪙 Income Stored:
+${Math.floor(totalIncome)}
+`;
+
+d.territoriesOwned=
+Object.values(
+d.territories||{}
+).length;
+
+
+if(d.avatar){
+
+document
+.getElementById(
+"avatar"
+).src=
+d.avatar;
+
+}
+
+}
+function start(){
+
+GAME_STATE.user.loggedIn=true;
+
+document
+.getElementById("auth")
+.classList
+.add("hidden");
+
+document
+.getElementById("game")
+.classList
+.remove("hidden"); initializeTerritories();
+
+render();if(!d.empireName){
+
+openEmpireSetup();
+
+}
+
+EVENTS.emit(
+"LOGIN_SUCCESS"
+);
+setInterval(updateEconomy,60000);
+
+
+}
+
+async function logout(){
+
+try{
+
+    await savePlayer();
+
+    await supabaseClient.auth.signOut();
+
+    GAME_STATE.user.loggedIn=false;
+
+    document
+    .getElementById("game")
+    .classList
+    .add("hidden");
+
+    document
+    .getElementById("auth")
+    .classList
+    .remove("hidden");
+
+    popupOpen(
+        "✅ Logged out successfully."
+    );
+
+}catch(e){
+
+    popupOpen(
+        "❌ Logout failed.<br><br>"+e.message
+    );
+
+}
+
+}
+
+
+const territoryBtn =
+
+document.getElementById(
+"territoryBtn"
+);
+
+if(
+territoryBtn
+){
+
+territoryBtn
+.addEventListener(
+
+"click",
+
+openTerritories
+
+);
+
+}
+
+
+
+document
+
+.getElementById(
+"avatar"
+)
+
+.addEventListener(
+
+"click",
+
+function(){
+
+document
+
+.getElementById(
+"avatarInput"
+)
+
+.click();
+
+}
+
+);
+document
+.getElementById("avatarInput")
+.addEventListener(
+"change",
+function(e){
+
+const file =
+e.target.files[0];
+
+if(!file)
+return;
+
+const reader =
+new FileReader();
+
+reader.onload=function(){
+
+d.avatar=
+reader.result;
+
+document
+.getElementById(
+"avatar"
+).src=
+d.avatar;
+
+savePlayer();
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+/* ===== DRAGON INVENTORY ENGINE ===== */
+
+if(!d.dragons)
+d.dragons=[];
+
+function updateChestTimer(){
+
+const timer=
+document.getElementById(
+"chestTimer"
+);
+
+if(!timer)
+return;
+
+const last=
+d.lastChest||0;
+
+const cooldown=
+24*60*60*1000;
+
+const remaining=
+cooldown-
+(
+Date.now()
+-
+last
+);
+
+if(
+remaining<=0
+){
+
+timer.className=
+"timerText timerReady";
+
+timer.innerHTML=
+"READY";
+
+return;
+
+}
+
+timer.className=
+"timerText timerWaiting";
+
+const hrs=
+Math.floor(
+remaining/
+3600000
+);
+
+const mins=
+Math.floor(
+(
+remaining%
+3600000
+)
+/
+60000
+);
+
+const secs=
+Math.floor(
+(
+remaining%
+60000
+)
+/
+1000
+);
+
+timer.innerHTML=
+
+`${hrs}h ${mins}m ${secs}s`;
+
+}
+
+async function savePlayer(){
+
+try{
+
+    localStorage.setItem(
+        "dragonelite_player",
+        JSON.stringify(d)
+    );
+
+}catch(e){
+
+    console.error(e);
+
+}
+
+}
+async function saveGame(){
+
+localStorage.setItem(
+"dragon_state",
+JSON.stringify(GAME_STATE)
+);
+
+if(!d.username)
+return;
+
+await supabaseClient
+
+.from("players")
+
+.upsert({
+
+username:
+d.username,
+
+save:
+GAME_STATE
+
+});
+
+}
+
+async function loadGame(){
+
+const local=
+localStorage.getItem(
+"dragon_state"
+);
+
+if(local){
+
+Object.assign(
+GAME_STATE,
+JSON.parse(local)
+);
+
+}
+
+}
+
+window.onload = async () => {
+
+    await API.loadPlayer();
+
+    render();
+
+    setInterval(async () => {
+
+        await API.savePlayer();
+
+    }, CONFIG.AUTO_SAVE_INTERVAL);
+
+};
+
+window.addEventListener("beforeunload", () => {
+
+    localStorage.setItem(
+        "dragonelite_player",
+        JSON.stringify(d)
+    );
+
+});
+
+function dragonCount(name){
+
+return d.dragons
+.filter(
+x=>x===name
+)
+.length;
+
+}
+
+function owned(name){
+
+return dragonCount(name)>0;
+
+}
+
+function randomTier(){
+
+const roll=
+Math.random()*100;
+
+if(roll<40)
+return "common";
+
+if(roll<65)
+return "rare";
+
+if(roll<80)
+return "epic";
+
+if(roll<90)
+return "mythic";
+
+if(roll<97)
+return "legendary";
+
+if(roll<99)
+return "cosmic";
+
+return "elite";
+
+}
+
+function reward(){
+
+const dr =
+randomDragon();
+
+if(
+!dr
+){
+
+return;
+
+}
+
+collectDragon(
+dr.name
+);
+
+}
+
+/* ===== SPIN WHEEL SYSTEM ===== */
+
+if(!d.tokens)
+d.tokens=5;
+
+// ======================
+// LEVEL UP REWARDS
+// ======================
+
+function levelRewardData(level){
+
+const tier=
+Math.floor(level/5)+1;
+
+return{
+
+coins:
+100*level*tier,
+
+diamonds:
+Math.max(
+1,
+Math.floor(level/2)
+),
+
+fish:
+20*level,
+
+dragonChance:
+Math.min(
+0.08+(level*0.01),
+0.60
+)
+
+};
+
+}
+
+
+
+function levelRewardClaimed(level){
+
+if(!d.levelRewards)
+d.levelRewards=[];
+
+return d.levelRewards.includes(level);
+
+}
+
+
+
+function markLevelReward(level){
+
+if(!d.levelRewards)
+d.levelRewards=[];
+
+d.levelRewards.push(level);
+
+savePlayer();
+
+}
+
+
+
+function giveLevelReward(level){
+
+if(levelRewardClaimed(level)){
+
+popupOpen(
+"Reward already claimed"
+);
+
+return;
+
+}
+
+const r=
+levelRewardData(level);
+
+d.coins+=r.coins;
+
+d.diamonds+=r.diamonds;
+
+d.fish+=r.fish;
+
+let dragonWon="";
+
+if(Math.random()<r.dragonChance){
+
+const dr=
+randomDragon();
+
+if(dr){
+
+collectDragon(
+dr.name
+);
+
+dragonWon=
+"<br><br>🐉 "+dr.name;
+
+}
+
+}
+
+markLevelReward(level);
+
+savePlayer();
+
+render();
+
+popupOpen(
+
+`
+🎁 LEVEL ${level} CHEST
+
+<br><br>
+
+🪙 +${r.coins}
+
+<br>
+
+💎 +${r.diamonds}
+
+<br>
+
+🐟 +${r.fish}
+
+${dragonWon}
+
+`
+
+);
+
+}
+
+
+
+function renderLevelRewardButton(){
+
+const area=
+document.getElementById(
+"levelRewardArea"
+);
+
+if(!area)
+return;
+
+let html="";
+
+for(
+let i=1;
+i<=d.level;
+i++
+){
+
+const claimed=
+levelRewardClaimed(i);
+
+html+=`
+
+<button
+
+style="
+
+margin:6px;
+padding:12px;
+
+border-radius:10px;
+
+background:
+
+${
+claimed
+?
+"#666"
+:
+"gold"
+};
+
+color:black;
+
+font-weight:bold;
+
+"
+
+onclick="giveLevelReward(${i})"
+
+>
+
+${
+claimed
+?
+"✓"
+:
+"🎁"
+}
+
+Lv ${i}
+
+</button>
+
+`;
+
+}
+
+area.innerHTML=
+html;
+
+}
+
+
+// ===============================
+// 🎡 CLEAN SPIN REWARD SYSTEM
+// ===============================
+
+function spinReward(){
+
+const rewards=[
+
+// COMMON
+{
+name:"300 Coins",
+chance:26,
+give(){
+d.coins+=300;
+}
+},
+
+{
+name:"600 Coins",
+chance:14,
+give(){
+d.coins+=600;
+}
+},
+
+{
+name:"150 Fish",
+chance:12,
+give(){
+d.fish+=150;
+}
+},
+
+{
+name:"300 Fish",
+chance:10,
+give(){
+d.fish+=300;
+}
+},
+
+{
+name:"5 Diamonds",
+chance:9,
+give(){
+d.diamonds+=5;
+}
+},
+
+{
+name:"10 Diamonds",
+chance:6,
+give(){
+d.diamonds+=10;
+}
+},
+
+{
+name:"1 Spin",
+chance:5,
+give(){
+d.tokens+=1;
+}
+},
+
+{
+name:"2 Spins",
+chance:3,
+give(){
+d.tokens+=2;
+}
+},
+
+{
+name:"75 XP",
+chance:4,
+give(){
+d.xp+=75;
+}
+},
+
+{
+name:"150 XP",
+chance:2,
+give(){
+d.xp+=150;
+}
+},
+
+// RARE
+{
+name:"Random Dragon",
+chance:4,
+give(){
+
+const dr=
+generateDragon();
+
+if(dr){
+
+collectDragon(
+dr.name
+);
+
+}
+
+}
+},
+
+{
+name:"Rare Dragon",
+chance:2,
+give(){
+
+const pool=
+DRAGON_LIBRARY
+.filter(
+x=>
+[
+"rare",
+"epic"
+]
+.includes(
+x.tier
+)
+);
+
+const dr=
+pool[
+Math.floor(
+Math.random()
+*
+pool.length
+)
+];
+
+collectDragon(
+dr.name
+);
+
+}
+},
+
+// ULTRA
+{
+name:"25 Diamonds",
+chance:1.5,
+give(){
+d.diamonds+=25;
+}
+},
+
+{
+name:"1000 Coins",
+chance:1,
+give(){
+d.coins+=1000;
+}
+},
+
+{
+name:"Elite Dragon",
+chance:0.5,
+give(){
+
+const pool=
+DRAGON_LIBRARY
+.filter(
+x=>
+
+x.tier==="elite"
+
+);
+
+if(pool.length){
+
+collectDragon(
+
+pool[
+Math.floor(
+Math.random()
+*
+pool.length
+)
+].name
+
+);
+
+}
+
+}
+}
+
+];
+
+
+
+const roll=
+Math.random()*100;
+
+let current=0;
+
+for(const r of rewards){
+
+current+=
+r.chance;
+
+if(
+roll<=current
+){
+
+r.give();
+
+savePlayer();
+
+render();
+
+return r.name;
+
+}
+
+}
+
+return "Nothing";
+
+}
+// 🐉 DRAGON REWARD
+// 🐉 DRAGON REWARD
+function dragonReward(){
+
+const dr =
+typeof generateDragon==="function"
+? generateDragon()
+: randomDragon();
+
+if(!dr){
+
+return "No reward";
+
+}
+
+collectDragon(
+dr.name
+);
+
+return "🐉 " + dr.name;
+
+}
+
+
+
+// 🎡 SPIN WHEEL
+function spinWheel(){
+
+if(
+d.tokens<=0
+){
+
+popupOpen(
+"No spin tokens."
+);
+
+return;
+
+}
+
+
+d.tokens--;
+
+savePlayer();
+
+render();
+
+const wheel=
+document.getElementById(
+"wheelDisc"
+);
+
+wheel.classList
+.add(
+"spinGlow"
+);
+
+const angle=
+
+3600
+
++
+
+Math.random()
+*
+1800;
+
+wheel.style
+.transform=
+
+`rotate(${angle}deg)`;
+
+setTimeout(()=>{
+
+wheel.classList
+.remove(
+"spinGlow"
+);
+
+const reward =
+spinReward();
+
+popupOpen(
+
+`
+<h1>
+
+🎡 Wheel Reward
+
+</h1>
+
+<br>
+
+YOU WON:
+
+<br><br>
+
+<b>
+
+${reward}
+
+</b>
+
+`
+
+);
+savePlayer();
+render();
+
+
+},6000);
+}
+
+
+
+
+function randomDragon(){
+
+const tier = randomTier();
+
+const pool = DRAGON_LIBRARY.filter(x => x.tier === tier);
+
+if(pool.length === 0) return null;
+
+return pool[Math.floor(Math.random() * pool.length)];
+
+} 
+
+
+
+function collectDragon(name){
+
+d.dragons.push(
+name
+);
+
+savePlayer();
+
+render();
+
+popupOpen(
+
+"🐉 New Dragon<br><br>"
+
++
+
+name
+
++
+
+"<br><br>Total: x"
+
++
+
+dragonCount(
+name
+)
+
+);
+
+}
+
+
+
+/* ========= DRAGON REWARD SYSTEM ULTIMATE ========= */
+
+if(!d.rewardStats){
+
+d.rewardStats={
+
+fails:0,
+
+history:[],
+
+shards:0,
+
+luck:0
+
+};
+
+}
+
+function tierPower(t){
+
+return{
+
+common:1,
+rare:2,
+epic:3,
+mythic:4,
+legendary:5,
+cosmic:6,
+elite:7
+
+}[t]||1;
+
+}
+
+function pityTier(){
+
+const x=
+d.rewardStats.fails;
+
+if(x>=35)
+return "elite";
+
+if(x>=28)
+return "cosmic";
+
+if(x>=20)
+return "legendary";
+
+if(x>=14)
+return "mythic";
+
+if(x>=8)
+return "epic";
+
+return null;
+
+}
+
+function rewardPool(){
+
+const forced=
+pityTier();
+
+if(forced){
+
+const p=
+
+DRAGON_LIBRARY.filter(
+x=>
+x.tier===
+forced
+);
+
+if(
+p.length
+){
+
+return p[
+Math.floor(
+Math.random()
+*
+p.length
+)
+];
+
+}
+
+}
+
+return randomDragon();
+
+}
+
+function rewardReveal(dr){
+
+popupOpen(
+
+`
+
+<div style="
+text-align:center;
+padding:20px;
+">
+
+<div style="
+font-size:120px;
+animation:
+dragonReveal
+1s
+infinite;
+">
+
+${dr.icon}
+
+</div>
+
+<h1>
+
+${dr.name}
+
+</h1>
+
+<div>
+
+⭐
+${dr.tier.toUpperCase()}
+
+</div>
+
+<br>
+
+❤️
+${dr.hp}
+
+<br>
+
+⚔
+${dr.damage}
+
+<br><br>
+
+<div>
+
+Shards:
+${d.rewardStats.shards}
+
+</div>
+
+</div>
+
+`
+
+);
+
+}
+
+function rewardRandomDragon(){
+
+const dr=
+rewardPool();
+
+if(!dr)
+return;
+
+collectDragon(
+dr.name
+);
+
+const value=
+tierPower(
+dr.tier
+);
+
+if(
+value>=4
+){
+
+d.rewardStats.fails=0;
+
+d.rewardStats.luck++;
+
+}else{
+
+d.rewardStats.fails++;
+
+}
+
+d.rewardStats.shards+=
+
+Math.max(
+1,
+value
+);
+
+if(
+
+d.rewardStats.shards
+>=
+100
+
+){
+
+d.rewardStats.shards-=100;
+
+const unlock=
+
+DRAGON_LIBRARY
+
+.filter(
+
+x=>
+
+!owned(
+x.name
+)
+
+);
+
+if(
+unlock.length
+){
+
+collectDragon(
+
+unlock[
+Math.floor(
+Math.random()
+*
+unlock.length
+)
+].name
+
+);
+
+popupOpen(
+
+"🌟 Guaranteed Dragon Unlock"
+
+);
+
+}
+
+}
+
+d.rewardStats.history.unshift({
+
+name:
+dr.name,
+
+tier:
+dr.tier,
+
+date:
+Date.now()
+
+});
+
+d.rewardStats.history=
+
+d.rewardStats.history
+
+.slice(
+0,
+30
+);
+
+savePlayer();
+
+render();
+
+setTimeout(
+
+()=>{
+
+rewardReveal(
+dr
+);
+
+},
+
+400
+
+);
+
+}
+
+function togglePass(){
+
+const p=document.getElementById("p");
+
+p.type=
+
+p.type==="password"
+
+? "text"
+
+: "password";
+
+}
+
+
+function dragonCopies(name){
+
+return d.dragons
+.filter(
+x=>x===name
+)
+.length;
+
+}
+
+function renderDragons(){
+
+
+
+const owned={};
+
+d.dragons.forEach(
+x=>
+owned[x]=
+(owned[x]||0)+1
+);
+
+
+const sorted=
+
+[...DRAGON_LIBRARY]
+
+.sort((a,b)=>{
+
+const oa=
+owned[a.name]
+?1
+:0;
+
+const ob=
+owned[b.name]
+?1
+:0;
+
+if(ob!==oa)
+return ob-oa;
+
+return (
+owned[b.name]||0
+)
+
+-
+
+(
+owned[a.name]||0
+);
+
+});
+
+const selectedTier=
+
+window.selectedTier
+
+||
+
+"all";
+
+
+
+popupOpen(
+
+`
+
+<div
+style="
+margin-bottom:12px;
+">
+
+
+<select
+id="tierSelect"
+
+
+style="
+width:100%;
+padding:10px;
+border-radius:10px;
+"
+
+onchange="
+
+window.selectedTier=
+
+this.value;
+
+renderDragons();
+
+"
+
+>
+
+<option value="all">
+
+All Tiers
+
+</option>
+
+<option value="common">
+
+Common
+
+</option>
+
+<option value="rare">
+
+Rare
+
+</option>
+
+<option value="epic">
+
+Epic
+
+</option>
+
+<option value="mythic">
+
+Mythic
+
+</option>
+
+<option value="legendary">
+
+Legendary
+
+</option>
+
+<option value="cosmic">
+
+Cosmic
+
+</option>
+
+<option value="elite">
+
+Elite
+
+</option>
+
+</select>
+
+</div>
+
+<div class="dragonGrid">
+
+`
+
++
+
+sorted
+
+.filter(
+
+dr=>
+
+selectedTier==="all"
+
+||
+
+dr.tier===selectedTier
+
+)
+
+.map(
+dr=>{
+
+const count=
+dragonCopies(
+dr.name
+);
+
+const own=
+count>0;
+
+return `
+<div
+class="dragonCard ${own ? "owned" : "locked"} ${dr.tier}"
+onclick="showDragon('${dr.name}')"
+>
+
+${
+count > 1
+?
+`
+<div class="dragonCount">
+x${count}
+</div>
+`
+:
+""
+}
+
+<div class="dragonIcon">
+${dr.icon}
+</div>
+
+<div>
+${dr.name}
+</div>
+
+</div>
+`;
+
+}).join("")
+
++
+
+`</div>`
+
+);
+
+const sel=
+
+document.getElementById(
+"tierSelect"
+);
+
+if(sel){
+
+sel.value=
+
+window.selectedTier
+
+||
+
+"all";
+
+}
+
+
+}
+
+function showDragon(name){
+
+const dr =
+DRAGON_LIBRARY.find(
+x => x.name === name
+);
+
+if(!dr){
+popupOpen("Dragon not found");
+return;
+}
+
+const ownedCount =
+dragonCopies(name);
+
+popupOpen(`
+
+<div style="text-align:center">
+
+<div style="
+font-size:90px;
+margin-bottom:10px;
+">
+${dr.icon}
+</div>
+
+<h1>${dr.name}</h1>
+
+<div style="
+padding:8px;
+margin:10px auto;
+width:180px;
+border-radius:999px;
+background:#222;
+">
+
+⭐ ${dr.tier.toUpperCase()}
+
+</div>
+
+<div class="slice blue">
+
+❤️ HP:
+<b>${dr.hp}</b>
+
+<br><br>
+
+⚔ Damage:
+<b>${dr.damage}</b>
+
+<br><br>
+
+🐉 Owned:
+<b>x${ownedCount}</b>
+
+</div>
+
+<div class="slice purple">
+
+<h2>Abilities</h2>
+
+${
+dr.abilities
+.map(a=>`
+
+<div style="
+margin:10px;
+padding:12px;
+background:#ffffff11;
+border-radius:12px;
+">
+
+<b>${a.name}</b>
+
+<br>
+
+${a.effect}
+
+</div>
+
+`)
+.join("")
+}
+
+</div>
+
+<div class="slice green">
+
+<h2>Description</h2>
+
+<div style="
+white-space:pre-wrap;
+line-height:1.7;
+">
+
+${dr.description}
+
+</div>
+
+</div>
+
+</div>
+
+`);
+
+}
+
+// Chest Logic
+
+// ===============================
+// 📦 MORNING CHEST (UPGRADED SYSTEM)
+// ===============================
+
+function canClaimChest(){
+    return Date.now() - (d.lastChest || 0) > CHEST_COOLDOWN;
+}
+
+const CHEST_COOLDOWN = 1000 * 60 * 60 * 24 // 24 hours
+
+
+
+function chestReward(){
+
+const base =
+200 +
+(
+d.level * 25
+);
+
+const coins =
+Math.floor(
+base +
+Math.random()*base
+);
+
+return coins;
+
+}
+
+
+
+const chestBtn =
+document.getElementById(
+"chestBtn"
+);
+
+
+
+if(
+chestBtn
+){
+
+chestBtn.onclick =
+async ()=>{
+console.log("Chest button clicked");
+
+try{
+
+if(
+!canClaimChest()
+){
+
+const remaining =
+Math.ceil(
+
+(
+CHEST_COOLDOWN
+-
+(
+Date.now()
+-
+d.lastChest
+)
+)
+
+/
+
+60000
+
+);
+
+popupOpen(
+
+"⏳ Chest not ready<br><br>Try again in "
+
++
+
+remaining
+
++
+
+" min"
+
+);
+
+return;
+
+}
+
+
+
+const data =
+true;
+
+const error =
+null;
+
+        if (error) throw error;
+
+        // 💰 reward coins (level scaled)
+        const coins = chestReward();
+        d.coins += coins;
+
+        // 🐉 small dragon chance (rare bonus)
+        const dragonChance = Math.random() * 100;
+
+        if (dragonChance > 92) {
+            rewardRandomDragon();
+        }
+
+        // ⏱ update chest time
+        d.lastChest = Date.now();
+
+        savePlayer();
+        render();
+
+        popupOpen(
+            "📦 Morning Chest<br><br>" +
+            "🪙 +" + coins + " Coins<br>" +
+            (dragonChance > 92 ? "<br>🐉 Bonus Dragon!" : "")
+        );
+
+    } catch (e) {
+        console.log(e);
+        popupOpen("Chest error: " + e.message);
+    }
+};
+
+}
+
+// ===== FORCE BIND BUTTONS =====
+
+const signupBtn = document.getElementById("signup");
+const loginBtn = document.getElementById("login");
+
+if(signupBtn){
+
+signupBtn.onclick = async ()=>{
+
+signupBtn.disabled=true;
+
+try{
+
+const username =
+document
+.getElementById("u")
+.value
+.trim();
+
+const password =
+document
+.getElementById("p")
+.value;
+
+if(
+!username
+||
+!password
+){
+
+msg.innerHTML =
+"Enter username and password";
+
+return;
+
+}
+
+const email =
+
+username
+
+.toLowerCase()
+
+.replace(
+/[^a-z0-9]/g,
+""
+)
+
++
+
+"@gmail.com";
+
+const {
+error
+}
+=
+await supabaseClient
+.auth
+.signUp({
+
+email,
+password
+
+});
+
+if(error)
+throw error;
+
+d.username=username;await API.loadPlayer();
+giveStarterPack();
+
+
+
+
+start();
+
+}
+catch(e){
+
+msg.innerHTML =
+e.message;
+
+}
+finally{
+
+signupBtn.disabled=false;
+
+}
+
+};
+
+}
+
+
+
+if(loginBtn){
+
+loginBtn.onclick = async ()=>{
+
+loginBtn.disabled=true;
+
+try{
+
+const username =
+document
+.getElementById("u")
+.value
+.trim();
+
+const password =
+document
+.getElementById("p")
+.value;
+
+if(
+!username
+||
+!password
+){
+
+msg.innerHTML =
+"Enter username and password";
+
+return;
+
+}
+const email =
+username
+.toLowerCase()
+.replace(/[^a-z0-9]/g,"")
++
+"@gmail.com";
+const {
+error
+}
+=
+await supabaseClient
+.auth
+.signInWithPassword({
+
+email,
+password
+
+});
+
+if(error)
+throw error;
+
+d.username=username;await API.loadPlayer();
+
+
+
+start();
+
+}
+catch(e){
+
+msg.innerHTML =
+e.message;
+
+}
+finally{
+
+loginBtn.disabled=false;
+
+}
+
+};
+
+}
+function initializeTerritories(){
+
+    TERRITORIES.forEach(t=>{
+
+        if(!d.territories[t.id]){
+
+            d.territories[t.id]={
+
+                owner:null,
+
+                coins:0,
+
+                population:1000,
+
+                tax:100,
+
+                level:1,
+
+                buildings:{
+
+                    house:0,
+
+                    farm:0,
+
+                    mine:0,
+
+                    market:0,
+
+                    hospital:0,
+
+                    fort:0
+
+                },
+
+                defense:100,
+
+                happiness:80
+
+            };
+
+        }
+
+    });
+
+}
+
+function upgradeBuilding(id,building){
+
+const t=TerritoryIndex[id];
+
+if(!t)return;
+
+const cost=(t.buildings[building]||1)*500;
+
+if(d.coins<cost){
+
+Popup.error("Not enough Coins!");
+
+return;
+
+}
+
+d.coins-=cost;
+
+t.buildings[building]++;
+
+switch(building){
+
+case "house":
+t.population+=250;
+break;
+
+case "farm":
+t.tax+=25;
+break;
+
+case "market":
+t.treasury+=100;
+break;
+
+case "mine":
+d.coins+=100;
+break;
+
+case "hospital":
+t.happiness=(t.happiness||50)+5;
+break;
+
+case "fort":
+t.defense+=20;
+break;
+
+case "dragonRoost":
+t.defense+=40;
+break;
+
+}
+
+savePlayer();
+
+render();
+
+Popup.success(building+" upgraded!");
+}
+
+// ===============================
+// 🏆 LEADERBOARD SYSTEM
+// ===============================
+
+document.getElementById("leaderboardBtn").onclick = async function(){
+
+    const { data, error } = await supabaseClient
+        .from("leaderboard")
+.select(`
+username,
+xp,
+level,
+coins
+`)
+        .select("*")
+        .order("xp", { ascending: false })
+        .limit(10);
+
+    if(error){
+        popupOpen("❌ Failed to load leaderboard");
+        return;
+    }
+
+    let rank = 1;
+
+    popupOpen(`
+
+        <div style="text-align:center">
+
+            <h2>🏆 Global Leaderboard</h2>
+
+            <div style="text-align:left;margin-top:15px">
+
+                ${data.map(p => `
+                    <div style="
+                        padding:10px;
+                        margin:8px 0;
+                        border-radius:10px;
+                        background:#ffffff11;
+                        display:flex;
+                        justify-content:space-between;
+                    ">
+
+                        <div>
+                            <b>#${rank++} ${p.username}</b>
+                            <br>
+                            <small>Level ${p.level || 1}</small>
+                        </div>
+
+                        <div style="text-align:right">
+                            <b>⭐ ${p.xp || 0} XP</b>
+                            <br>
+                            <small>🪙 ${p.coins || 0}</small>
+                        </div>
+
+                    </div>
+                `).join("")}
+
+            </div>
+
+            <button onclick="document.getElementById('popup').style.display='none'"
+                style="width:100%;margin-top:10px">
+                Close
+            </button>
+
+        </div>
+
+    `);
+};
+document.getElementById("dragons").onclick = renderDragons;
+// ===============================
+// 🛒 SHOP SYSTEM (STEP 7A)
+// ===============================
+
+function spendCoins(v){
+
+if(d.coins<v){
+
+popupOpen(
+"❌ Not enough coins"
+);
+
+return false;
+}
+
+d.coins-=v;
+
+return true;
+
+}
+
+function spendDiamonds(v){
+
+if(d.diamonds<v){
+
+popupOpen(
+"❌ Not enough diamonds"
+);
+
+return false;
+}
+
+d.diamonds-=v;
+
+return true;
+
+}
+
+function shopBuy(type){
+
+// 💎 BUY COINS
+if(type==="coins"){
+
+if(!spendDiamonds(10))
+return;
+
+d.coins+=1500;
+
+}
+
+// 🐟 BUY FISH
+else if(type==="fish"){
+
+if(!spendCoins(300))
+return;
+
+d.fish+=600;
+
+}
+
+// 🎟 BUY SPINS
+else if(type==="tokens"){
+
+if(!spendDiamonds(5))
+return;
+
+d.tokens+=3;
+
+}
+
+// 🐉 RANDOM DRAGON
+else if(type==="dragon"){
+
+if(!spendDiamonds(30))
+return;
+
+rewardRandomDragon();
+
+}
+
+savePlayer();
+
+render();
+
+popupOpen(
+
+"✅ Purchase Complete"
+
+);
+
+}
+
+function openShop(){
+
+popupOpen(`
+
+<div style="text-align:center">
+
+<h1>
+🛒 Dragon Shop
+</h1>
+
+<br>
+
+<div class="dragonGrid">
+
+<div class="box">
+
+<h2>
+🪙
+</h2>
+
+1500 Coins
+
+<br><br>
+
+💎 10 diamonds
+
+<br><br>
+
+<button
+onclick="shopBuy('coins')">
+
+Buy
+
+</button>
+
+</div>
+
+<div class="box">
+
+<h2>
+🐟
+</h2>
+
+600 Fish
+
+<br><br>
+
+🪙 300coins
+
+<br><br>
+
+<button
+onclick="shopBuy('fish')">
+
+Buy
+
+</button>
+
+</div>
+
+<div class="box">
+
+<h2>
+🎟
+</h2>
+
+3 Tokens
+
+<br><br>
+
+💎 5 diamonds
+
+<br><br>
+
+<button
+onclick="shopBuy('tokens')">
+
+Buy
+
+</button>
+
+</div>
+
+<div class="box">
+
+<h2>
+🐉
+</h2>
+
+Random Dragon
+
+<br><br>
+
+💎 30diamonds
+
+<br><br>
+
+<button
+onclick="shopBuy('dragon')">
+
+Buy
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`);
+
+}
+
+const shopBtn =
+document.getElementById(
+"shopBtn"
+);
+
+if(shopBtn){
+
+shopBtn.onclick =
+openShop;
+
+}
+
+
+
+// ===============================
+// 🏙 TERRITORY SYSTEM (STEP 8A)
+// ===============================
+
+if(!d.territories)
+d.territories={};
+if(!GAME_STATE.territories)
+GAME_STATE.territories={};
+
+
+// ===============================
+// 🏗️ TERRITORY BUILDINGS SYSTEM
+// ===============================
+
+const BUILDINGS = {
+
+house: {
+name: "House",
+cost: { coins: 500 },
+effect: "population"
+},
+
+farm: {
+name: "Farm",
+cost: { coins: 800 },
+effect: "resource"
+},
+
+factory: {
+name: "Factory",
+cost: { coins: 2000, diamonds: 2 },
+effect: "tax"
+},
+
+hospital: {
+name: "Hospital",
+cost: { coins: 1500 },
+effect: "happiness"
+},
+
+fort: {
+name: "Fort",
+cost: { coins: 2500 },
+effect: "defense"
+}
+
+};
+
+
+
+function ownsTerritory(id){
+
+return !!d.territories[id];
+
+}
+
+
+
+function buyTerritory(id){
+
+const t=
+TERRITORIES.find(
+x=>x.id===id
+);
+
+if(!t)
+return;
+if(
+GAME_STATE.territories[id]
+){
+
+popupOpen(
+
+"👑 Owned by "
+
++
+GAME_STATE.territories[id]
+
+);
+
+return;
+
+}
+
+if(
+d.coins
+<
+t.cost.coins
+){
+
+popupOpen(
+"Not enough coins"
+);
+
+return;
+
+}
+
+if(
+d.diamonds
+<
+t.cost.diamonds
+){
+
+popupOpen(
+"Not enough diamonds"
+);
+
+return;
+
+}
+
+d.coins-=
+t.cost.coins;
+
+d.diamonds-=
+t.cost.diamonds;
+
+GAME_STATE.territories[id]=d.username;
+d.territories[id]={
+owner:GAME_STATE.territories[id],
+population:t.population,
+tax:t.tax,
+resource:t.resource,
+terrain:t.terrain,
+development:1,
+happiness:80,
+defense:50,
+money:0,
+
+buildings:{
+house:0,
+farm:0,
+factory:0,
+hospital:0,
+fort:0
+}
+};
+savePlayer();
+
+render();
+
+popupOpen(
+
+`
+
+🏙 Territory Purchased
+
+<br><br>
+
+${t.name}
+
+<br>
+
+Population:
+${t.population}
+
+`
+
+);
+
+}
+
+
+
+function openTerritory(id){
+
+const t = TerritoryIndex[id];
+
+const owned =
+t.owner &&
+t.owner!=="Unclaimed";
+
+popupOpen(`
+
+<h2>🏛 ${t.name}</h2>
+
+<b>State:</b> ${t.state}<br><br>
+
+👑 <b>Owner:</b> ${t.owner||"Unclaimed"}<br>
+
+👥 <b>Population:</b> ${t.population||1000}<br>
+
+💰 <b>Treasury:</b> ${t.treasury||0}<br>
+
+📈 <b>Income:</b> ${t.income||50}/min<br>
+
+🏛 <b>Development:</b> Lv.${t.level||1}
+
+<br>
+
+💸 Next Upgrade:
+${((t.level||1)*3000)} Coins
+
+🛡 <b>Defense:</b> ${t.defense||10}<br>
+
+😊 <b>Happiness:</b> ${t.happiness||80}%<br>
+
+🌾 <b>Food:</b> ${t.food||250}<br>
+
+🪵 <b>Wood:</b> ${t.wood||150}<br>
+
+
+⛏ <b>Stone:</b> ${t.stone||100}<br><br>
+
+🏗 <b>Buildings</b><br>
+
+🌾 Farm: Lv.${t.farm||0}<br>
+
+🏪 Market: Lv.${t.market||0}<br>
+
+🏠 Houses: Lv.${t.houses||0}<br>
+
+🏰 Fort: Lv.${t.fort||0}<br><br>
+
+🪙 <b>Coin Price:</b> ${t.coinPrice||5000}<br>
+
+💎 <b>Diamond Price:</b> ${t.diamondPrice||15}<br><br>
+
+${
+!t.owner || t.owner==="Unclaimed"
+
+?
+
+`
+
+<button
+style="width:100%;margin:5px"
+onclick="buyTerritoryCoins('${id}')">
+
+🪙 Buy with Coins
+
+</button>
+
+<button
+style="width:100%;margin:5px"
+onclick="buyTerritoryDiamonds('${id}')">
+
+💎 Buy with Diamonds
+
+</button>
+
+`
+
+:
+
+t.owner===d.username
+
+?
+
+`
+
+<button
+style="width:100%;margin:5px"
+onclick="upgradeTerritory('${id}')">
+
+⬆ Upgrade District
+
+</button>
+
+`
+
+:
+
+`
+
+<button
+style="width:100%;margin:5px"
+onclick="upgradeBuilding('${id}','farm')">
+
+🌾 Upgrade Farm
+
+</button>
+
+<button
+style="width:100%;margin:5px"
+onclick="upgradeBuilding('${id}','market')">
+
+🏪 Upgrade Market
+
+</button>
+
+<button
+style="width:100%;margin:5px"
+onclick="upgradeBuilding('${id}','houses')">
+
+🏠 Upgrade Houses
+
+</button>
+
+<button
+style="width:100%;margin:5px"
+onclick="upgradeBuilding('${id}','fort')">
+
+🏰 Upgrade Fort
+
+</button>
+
+<button
+style="width:100%;margin:5px"
+onclick="attackTerritory('${id}')">
+
+⚔ Attack Territory
+
+</button>
+
+`
+
+}
+
+
+`);
+
+}
+// ===============================
+// 🏙 TERRITORY ECONOMY
+// ===============================
+
+
+
+
+// ===============================
+// 🏙 TERRITORY SYSTEM CLEAN FIX
+// ===============================
+
+function collectTaxes(id){
+if(!d.territories[id]){
+
+    d.territories[id]={
+
+        owner:null,
+
+        coins:0,
+
+        population:1000,
+
+        tax:100,
+
+        level:1,
+
+        buildings:{},
+
+        happiness:80,
+
+        defense:100
+
+    };
+
+}
+
+const territory=d.territories[id];
+if(!t)return;
+
+const money=Math.floor(t.money);
+t.money=0;
+
+d.coins+=money;
+
+savePlayer();
+render();
+
+popupOpen(`
+🪙 Taxes Collected<br><br>+${money} Coins
+`);
+
+}
+
+function upgradeTerritory(id){
+
+if(!d.territories[id]){
+
+    d.territories[id]={
+
+        owner:null,
+
+        coins:0,
+
+        population:1000,
+
+        tax:100,
+
+        level:1,
+
+        buildings:{},
+
+        happiness:80,
+
+        defense:100
+
+    };
+
+}
+
+const territory=d.territories[id];
+if(!t)return;
+
+const cost=Math.floor(3000*t.development);
+
+if(d.coins<cost){
+popupOpen("Need "+cost+" Coins");
+return;
+}
+
+d.coins-=cost;
+
+t.development+=1;
+t.tax+=15;
+t.happiness+=5;
+
+savePlayer();
+render();
+
+popupOpen(`
+🏗 Territory Upgraded<br><br>
+Development: ${t.development.toFixed(1)}
+`);
+
+}
+
+function upgradeBuilding(id,type){
+
+const t=TerritoryIndex[id];
+
+const level=t[type]||0;
+
+const cost=(level+1)*1500;
+
+if(d.coins<cost){
+
+Popup.error("Need "+cost+" coins.");
+
+return;
+
+}
+
+d.coins-=cost;
+
+t[type]=level+1;
+
+switch(type){
+
+case "farm":
+
+t.food=(t.food||0)+100;
+
+break;
+
+case "market":
+
+t.income=(t.income||50)+20;
+
+break;
+
+case "houses":
+
+t.population=(t.population||1000)+500;
+
+break;
+
+case "fort":
+
+t.defense=(t.defense||10)+10;
+
+break;
+
+}
+
+savePlayer();
+
+render();
+
+Popup.success(type+" upgraded!");
+
+}
+
+function updateEconomy(){
+
+Object.values(TerritoryIndex).forEach(t=>{
+
+    if(t.owner!==d.username)
+        return;
+
+    t.population += Math.max(1,Math.floor(t.population*0.005));
+
+    t.treasury += t.income||50;
+
+    d.coins += t.income||50;
+
+});
+
+savePlayer();
+
+render();
+
+}
+
+function territoryTick(){
+
+if(!d.territories) return;
+
+Object.keys(d.territories).forEach(id=>{
+if(!d.territories[id]){
+
+    d.territories[id]={
+
+        owner:null,
+
+        coins:0,
+
+        population:1000,
+
+        tax:100,
+
+        level:1,
+
+        buildings:{},
+
+        happiness:80,
+
+        defense:100
+
+    };
+
+}
+
+const territory=d.territories[id];
+
+// ===============================
+// 👥 POPULATION GROWTH
+// ===============================
+let popBoost =
+1 +
+(t.buildings.house * 0.02) +
+(t.happiness / 200);
+
+t.population += Math.floor(popBoost);
+
+// ===============================
+// 🪙 TAX INCOME (SKYLINES STYLE)
+// ===============================
+let taxBoost =
+t.tax *
+(t.population / 1000)
+*
+(1 + t.buildings.factory * 0.1);
+
+t.money += Math.floor(taxBoost);
+
+// ===============================
+// 😊 HAPPINESS SYSTEM
+// ===============================
+t.happiness +=
+Math.random() < 0.5 ? 1 : -1;
+
+// buildings affect happiness
+t.happiness += t.buildings.hospital * 0.5;
+
+if(t.happiness > 100) t.happiness = 100;
+if(t.happiness < 0) t.happiness = 0;
+
+// ===============================
+// 🛡 DEFENSE SCALING
+// ===============================
+t.defense =
+50 +
+(t.buildings.fort * 20) +
+Math.floor(t.development * 10);
+
+});
+
+// autosave world state
+savePlayer();
+
+}
+
+function territoryDetails(id){
+
+if(!d.territories[id]){
+
+    d.territories[id]={
+
+        owner:null,
+
+        coins:0,
+
+        population:1000,
+
+        tax:100,
+
+        level:1,
+
+        buildings:{},
+
+        happiness:80,
+
+        defense:100
+
+    };
+
+}
+
+const territory=d.territories[id];
+if(!t)return;
+
+popupOpen(`
+
+<div style="text-align:center">
+
+<h1>🏙 ${id}</h1>
+
+<br>
+
+👥 Population<br>
+${Math.floor(t.population)}
+
+<br><br>
+
+🪙 Stored Taxes<br>
+${Math.floor(t.money)}
+
+<br><br>
+⚔ Defense Power: ${t.defense}
+
+<br><br>
+
+🏗 Development<br>
+${t.development.toFixed(1)}
+
+<br><br>
+
+😊 Happiness<br>
+${t.happiness}%
+
+<br><br>
+
+🛡 Defense<br>
+${t.defense}
+
+<br><br>
+
+<button onclick="collectTaxes('${id}')">
+Collect Taxes
+</button>
+
+<br><br>
+
+<button onclick="upgradeTerritory('${id}')">
+Upgrade
+</button>
+<br><br>
+<button onclick="attackTerritory('${id}')">
+⚔ Attack Territory
+</button>
+
+<br><br>
+<h3>🏗 Buildings</h3>
+
+<button onclick="build('${id}','house')">House</button>
+<button onclick="build('${id}','farm')">Farm</button>
+<button onclick="build('${id}','factory')">Factory</button>
+<button onclick="build('${id}','hospital')">Hospital</button>
+<button onclick="build('${id}','fort')">Fort</button>
+
+</div>
+
+`);
+
+}
+
+function setEmpireColor(c){
+
+GAME_STATE.empireColor=c;
+
+saveGame();
+
+render();
+
+}
+
+function build(id,type){
+
+if(!d.territories[id]){
+
+    d.territories[id]={
+
+        owner:null,
+
+        coins:0,
+
+        population:1000,
+
+        tax:100,
+
+        level:1,
+
+        buildings:{},
+
+        happiness:80,
+
+        defense:100
+
+    };
+
+}
+
+const territory=d.territories[id];
+if(!t)return;
+
+const b=BUILDINGS[type];
+if(!b)return;
+
+if(b.cost.coins && d.coins<b.cost.coins){
+popupOpen("Not enough coins");
+return;
+}
+
+if(b.cost.diamonds && d.diamonds<b.cost.diamonds){
+popupOpen("Not enough diamonds");
+return;
+}
+
+d.coins-=(b.cost.coins||0);
+d.diamonds-=(b.cost.diamonds||0);
+
+t.buildings[type]++;
+
+if(b.effect==="population") t.population+=100;
+if(b.effect==="resource") t.tax+=5;
+if(b.effect==="tax") t.tax+=20;
+if(b.effect==="happiness") t.happiness+=10;
+if(b.effect==="defense") t.defense+=25;
+
+savePlayer();
+render();
+
+popupOpen("🏗️ Built "+b.name);
+
+}
+
+function attackTerritory(id){
+
+const target = d.territories[id];
+if(!target) return;
+
+// must not attack your own
+if(GAME_STATE.territories[id] === d.username){
+popupOpen("❌ You already own this territory");
+return;
+}
+
+// cooldown check
+if(!d.lastAttack) d.lastAttack = 0;
+
+if(Date.now() - d.lastAttack < 60000){
+popupOpen("⏳ Wait before next attack");
+return;
+}
+
+// compute power
+const myPower =
+(d.level * 10) +
+(d.tokens * 5) +
+Math.random()*50;
+
+const enemyPower =
+target.defense +
+(target.population / 100) +
+Math.random()*50;
+
+// result
+if(myPower > enemyPower){
+
+// WIN
+GAME_STATE.territories[id] = d.username;
+
+target.defense = Math.floor(target.defense * 0.7);
+target.happiness -= 20;
+
+popupOpen("🏆 You conquered " + id);
+
+}
+else{
+
+// LOSE
+d.coins = Math.max(0, d.coins - 500);
+
+target.happiness += 10;
+
+popupOpen("💀 Attack failed!");
+}
+
+d.lastAttack = Date.now();
+
+savePlayer();
+render();
+}
+
+function buyTerritoryCoins(id){
+
+const t = TerritoryIndex[id];
+
+const price = t.coinPrice || 5000;
+
+if(d.coins < price){
+
+Popup.error("Not enough coins.");
+
+return;
+
+}
+
+d.coins -= price;
+
+t.owner = d.username;
+
+t.level = 1;
+
+t.population = 1000;
+
+t.treasury = 0;
+
+t.income = 50;
+
+savePlayer();
+
+render();
+
+Popup.success("🏛 You purchased " + t.name);
+
+}
+
+function buyTerritoryDiamonds(id){
+
+const t = TerritoryIndex[id];
+
+const price = t.diamondPrice || 15;
+
+if(d.diamonds < price){
+
+Popup.error("Not enough diamonds.");
+
+return;
+
+}
+
+d.diamonds -= price;
+
+t.owner = d.username;
+
+t.level = 1;
+
+t.population = 1000;
+
+t.treasury = 0;
+
+t.income = 50;
+
+savePlayer();
+
+render();
+
+Popup.success("💎 You purchased " + t.name);
+
+}
+
+function upgradeTerritory(id){
+
+const t = TerritoryIndex[id];
+
+if(!t) return;
+
+if(t.owner!==d.username){
+
+Popup.error("You do not own this district.");
+
+return;
+
+}
+
+const cost = (t.level||1)*3000;
+
+if(d.coins<cost){
+
+Popup.error("You need "+cost+" coins.");
+
+return;
+
+}
+
+d.coins-=cost;
+
+t.level=(t.level||1)+1;
+
+t.population=(t.population||1000)+500;
+
+t.income=(t.income||50)+25;
+
+t.defense=(t.defense||10)+5;
+
+t.happiness=Math.min(100,(t.happiness||80)+2);
+
+savePlayer();
+
+render();
+
+Popup.success(
+`${t.name} upgraded to Level ${t.level}!`
+);
+
+}
+
+// ===============================
+// 🎁 RANDOM PACK SYSTEM CLEAN FIX
+// ===============================
+
+function openPack(type){
+
+let reward="";
+
+if(type==="coin"){
+
+if(d.coins<500){
+popupOpen("❌ Need 500 Coins");
+return;
+}
+
+d.coins-=500;
+
+const r=Math.random()*100;
+
+if(r<35){
+const c=500+Math.floor(Math.random()*1500);
+d.coins+=c;
+reward="🪙 "+c+" Coins";
+}
+
+else if(r<60){
+const f=300+Math.floor(Math.random()*700);
+d.fish+=f;
+reward="🐟 "+f+" Fish";
+}
+
+else if(r<80){
+const t=1+Math.floor(Math.random()*3);
+d.tokens+=t;
+reward="🎟 "+t+" Tokens";
+}
+
+else if(r<95){
+const dmd=1+Math.floor(Math.random()*8);
+d.diamonds+=dmd;
+reward="💎 "+dmd+" Diamonds";
+}
+
+else{
+rewardRandomDragon();
+reward="🐉 Random Dragon";
+}
+
+}
+
+else if(type==="diamond"){
+
+if(d.diamonds<20){
+popupOpen("❌ Need 20 Diamonds");
+return;
+}
+
+d.diamonds-=20;
+
+const r=Math.random()*100;
+
+if(r<25){
+const c=2000+Math.floor(Math.random()*4000);
+d.coins+=c;
+reward="🪙 "+c+" Coins";
+}
+
+else if(r<45){
+const t=3+Math.floor(Math.random()*6);
+d.tokens+=t;
+reward="🎟 "+t+" Tokens";
+}
+
+else if(r<70){
+const f=1000+Math.floor(Math.random()*1500);
+d.fish+=f;
+reward="🐟 "+f+" Fish";
+}
+
+else{
+rewardRandomDragon();
+reward="🐉 Premium Dragon";
+}
+
+}
+
+savePlayer();
+render();
+
+popupOpen("🎁 PACK OPENED<br><br>"+reward);
+
+
+
++
+
+reward
+
+
+}
+
+
+
+// PATCH SHOP
+const oldOpenShop =
+openShop;
+
+openShop=function(){
+
+oldOpenShop();
+
+document.getElementById(
+"panel"
+).innerHTML
+
++=
+
+`
+
+<br>
+
+<h2
+style="
+text-align:center;
+">
+
+🎁 Packs
+
+</h2>
+
+<div
+class="dragonGrid">
+
+<div class="box">
+
+<h2>
+
+🎁
+
+</h2>
+
+Coin Pack
+
+<br><br>
+
+Cost:
+🪙 500
+
+<br><br>
+document
+
+.getElementById(
+"wheel"
+)
+
+.addEventListener(
+
+"click",
+
+spinWheel
+
+);
+
+<button
+onclick="openPack('coin')">
+
+Open
+
+</button>
+
+</div>
+
+<div class="box">
+
+<h2>
+
+💎
+
+</h2>
+
+Diamond Pack
+
+<br><br>
+
+Cost:
+💎 20
+
+<br><br>
+
+<button
+onclick="openPack('diamond')">
+
+Open
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+};
+
+// ===============================
+// 🎁 MULTIPACK SYSTEM (STEP 7C)
+// ===============================
+
+const SHOP_PACKS=[
+
+{
+name:"Starter Pack",
+priceType:"coins",
+price:1000,
+
+guaranteed:[
+{type:"coins",amount:800},
+{type:"fish",amount:300}
+],
+
+chance:[
+{chance:50,type:"diamonds",amount:5},
+{chance:20,type:"tokens",amount:2},
+{chance:8,type:"dragon"}
+]
+},
+
+{
+name:"Hunter Pack",
+priceType:"coins",
+price:2500,
+
+guaranteed:[
+{type:"coins",amount:1200},
+{type:"tokens",amount:1}
+],
+
+chance:[
+{chance:60,type:"fish",amount:700},
+{chance:25,type:"diamonds",amount:10},
+{chance:12,type:"dragon"}
+]
+},
+
+{
+name:"Elite Pack",
+priceType:"diamonds",
+price:20,
+
+guaranteed:[
+{type:"coins",amount:3000},
+{type:"fish",amount:1200}
+],
+
+chance:[
+{chance:70,type:"tokens",amount:3},
+{chance:30,type:"dragon"},
+{chance:10,type:"diamonds",amount:20}
+]
+},
+
+{
+name:"Legend Pack",
+priceType:"diamonds",
+price:45,
+
+guaranteed:[
+{type:"coins",amount:6000},
+{type:"tokens",amount:5}
+],
+
+chance:[
+{chance:100,type:"fish",amount:1500},
+{chance:45,type:"dragon"},
+{chance:18,type:"dragon"},
+{chance:5,type:"dragon"}
+]
+},
+
+{
+name:"God Pack",
+priceType:"diamonds",
+price:100,
+
+guaranteed:[
+{type:"coins",amount:15000},
+{type:"diamonds",amount:20},
+{type:"tokens",amount:10}
+],
+
+chance:[
+{chance:100,type:"dragon"},
+{chance:60,type:"dragon"},
+{chance:25,type:"dragon"},
+{chance:10,type:"dragon"}
+]
+}
+
+];
+
+
+
+function givePackReward(r){
+
+if(r.type==="coins")
+d.coins+=r.amount;
+
+else if(r.type==="diamonds")
+d.diamonds+=r.amount;
+
+else if(r.type==="fish")
+d.fish+=r.amount;
+
+else if(r.type==="tokens")
+d.tokens+=r.amount;
+
+else if(r.type==="dragon")
+rewardRandomDragon();
+
+}
+
+
+
+function openMultiPack(i){
+
+const p=
+SHOP_PACKS[i];
+
+if(
+p.priceType==="coins"
+&&
+d.coins<p.price
+){
+
+popupOpen(
+"❌ Need "
++
+p.price
++
+" Coins"
+);
+
+return;
+
+}
+
+if(
+p.priceType==="diamonds"
+&&
+d.diamonds<p.price
+){
+
+popupOpen(
+"❌ Need "
++
+p.price
++
+" Diamonds"
+);
+
+return;
+
+}
+
+
+if(
+p.priceType==="coins"
+)
+d.coins-=p.price;
+
+else
+d.diamonds-=p.price;
+
+
+let results=[];
+
+
+// guaranteed
+p.guaranteed.forEach(r=>{
+
+givePackReward(r);
+
+results.push(
+
+"✅ "
++
+(
+r.type==="dragon"
+
+?
+
+"Random Dragon"
+
+:
+
+r.amount
++
+" "
++
+r.type
+
+)
+
+);
+
+});
+
+
+// chance
+p.chance.forEach(r=>{
+
+if(
+Math.random()*100
+<=
+r.chance
+){
+
+givePackReward(r);
+
+results.push(
+
+"🎲 "
++
+r.chance
++
+"% → "
+
++
+
+(
+r.type==="dragon"
+
+?
+
+"Random Dragon"
+
+:
+
+r.amount
++
+" "
++
+r.type
+
+)
+
+);
+
+}
+
+});
+
+
+savePlayer();
+
+render();
+
+popupOpen(
+
+`
+
+<div style="text-align:center">
+
+<h1>
+
+🎁
+${p.name}
+
+</h1>
+
+<br>
+
+${results.join("<br>")}
+
+</div>
+
+`
+
+);
+
+}
+
+
+
+const oldShop2=
+openShop;
+
+openShop=function(){
+
+oldShop2();
+
+document.getElementById(
+"panel"
+)
+
+.innerHTML
+
++=
+
+`
+
+<br>
+
+<h2
+style="text-align:center">
+
+🎁 Multi Packs
+
+</h2>
+
+<div
+class="dragonGrid">
+
+${SHOP_PACKS.map(
+
+(p,i)=>`
+
+<div class="box">
+
+<h2>
+
+🎁
+
+</h2>
+
+<b>
+
+${p.name}
+
+</b>
+
+<br><br>
+
+Price:
+
+${
+p.priceType==="coins"
+?
+
+"🪙"
+
+:
+
+"💎"
+
+}
+
+${p.price}
+
+<br><br>
+
+<button
+onclick="openMultiPack(${i})">
+
+Open
+
+</button>
+
+</div>
+
+`).join("")}
+
+</div>
+
+`;
+
+};
+
+
+const wheelBtn = document.getElementById('wheel');
+
+if(wheelBtn){
+wheelBtn.onclick = spinWheel;
+}
+const viewSuggestionsButton =
+document.getElementById(
+"viewSuggestionsButton"
+);
+
+if(viewSuggestionsButton){
+
+viewSuggestionsButton.onclick =
+async function(){
+
+const {
+data,
+error
+}
+=
+await supabaseClient
+.from("suggestions")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+if(error){
+
+popupOpen(
+"❌ Failed to load suggestions"
+);
+
+return;
+
+}
+
+popupOpen(
+
+data
+.length
+
+?
+
+data.map(
+x=>
+
+`
+<div>
+
+<b>${x.username}</b>
+
+<br>
+
+${x.text}
+
+</div>
+
+<br>
+`
+
+).join("")
+
+:
+
+"No suggestions"
+
+);
+
+
+}
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h2>📢 Community Suggestions</h2>
+
+            <div style="max-height:400px;overflow:auto;margin-top:10px;text-align:left">
+
+                ${
+                    data.map(s => `
+                        <div style="
+                            padding:10px;
+                            margin:10px 0;
+                            border-radius:10px;
+                            background:#ffffff11;
+                        ">
+
+                            <b>${s.type === "bug" ? "🐛 BUG" : "💡 IDEA"}</b>
+                            <br>
+                            <small>by ${s.username}</small>
+                            <br><br>
+                            ${s.message}
+                            <br><br>
+                            <small>
+                                ${new Date(s.created_at).toLocaleString()}
+                            </small>
+
+                                               </div>
+                    `).join("")
+                }
+
+            </div>
+
+            <button
+onclick="document.getElementById('popup').style.display='none'"
+style="width:100%;margin-top:10px">
+
+Close
+
+</button>
+
+</div>
+
+`);
+
+};
+
+
+
+// ===============================
+// ⚔️ DRAGON BATTLE CORE (STEP 1)
+// ===============================
+
+let battle = null;
+
+// 🐉 get dragon from library
+function getDragonByName(name){
+    return DRAGON_LIBRARY.find(d => d.name === name);
+}
+
+// 🧠 create a safe copy (IMPORTANT for HP changes)
+function cloneDragon(dragon){
+    return JSON.parse(JSON.stringify(dragon));
+}
+
+// 🐉 get player's first owned dragon (temporary default)
+function getPlayerDragon(){
+    if (!d.dragons.length) return null;
+    return getDragonByName(d.dragons[0]);
+}
+
+// 🤖 get random AI dragon
+function getRandomAIDragon(){
+    const dr = DRAGON_LIBRARY[Math.floor(Math.random() * DRAGON_LIBRARY.length)];
+    return cloneDragon(dr);
+}
+
+// ⚔️ start simple AI battle (1v1 base system)
+
+function openBattleCenter(){
+
+popupOpen(`
+
+<h2>⚔ Battle Center</h2>
+
+<button
+style="width:100%;margin:8px 0;"
+onclick="closePopup();startBattleAI();">
+
+🧠 AI Battle
+
+</button>
+
+<button
+style="width:100%;margin:8px 0;"
+onclick="closePopup();startPvPBattle(1);">
+
+👥 PvP Battle
+
+</button>
+
+<button
+style="width:100%;margin:8px 0;"
+disabled>
+
+🗺 Territory Battle (Coming Soon)
+
+</button>
+
+`);
+
+}
+function startBattleAI(){
+
+    const player = getPlayerDragon();
+    const enemy = getRandomAIDragon();
+
+    if (!player) {
+        popupOpen("❌ You have no dragons!");
+        return;
+    }
+
+    battle = {
+        type: "AI",
+        player: cloneDragon(player),
+        enemy: cloneDragon(enemy),
+        pHP: player.hp,
+        eHP: enemy.hp,
+        turn: "player"
+    };
+
+    openBattleUI();
+}
+
+// 🎮 battle UI
+function openBattleUI(){
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h1>⚔️ BATTLE (${battle.type})</h1>
+
+            <div style="display:flex;justify-content:space-around;margin-top:20px">
+
+                <div>
+                    <h2>🐉 YOU</h2>
+                    <div>${battle.player.icon}</div>
+                    <div id="pHP">HP: ${battle.pHP}</div>
+                </div>
+
+                <div>
+                    <h2>🔥 ENEMY</h2>
+                    <div>${battle.enemy.icon}</div>
+                    <div id="eHP">HP: ${battle.eHP}</div>
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <button onclick="playerAttack()">⚔ ATTACK</button>
+
+        </div>
+    `);
+}
+
+// ⚔️ player attack
+function playerAttack(){
+
+    const dmg = battle.player.damage;
+
+    battle.eHP -= dmg;
+
+    if (battle.eHP <= 0) {
+        endBattle(true);
+        return;
+    }
+
+    enemyAttack();
+}
+
+// 🤖 enemy attack
+function enemyAttack(){
+
+    const dmg = battle.enemy.damage;
+
+    battle.pHP -= dmg;
+
+    if (battle.pHP <= 0) {
+        endBattle(false);
+        return;
+    }
+
+    updateBattleUI();
+}
+
+// 🔄 update UI
+function updateBattleUI(){
+
+    const p = document.getElementById("pHP");
+    const e = document.getElementById("eHP");
+
+    if (p) p.innerHTML = "HP: " + battle.pHP;
+    if (e) e.innerHTML = "HP: " + battle.eHP;
+}
+
+// 🏁 end battle
+// 🏁 end battle
+function endBattle(win){
+
+    if(win){
+
+        d.coins+=200;
+        d.xp+=50;
+
+        // Capture a random unclaimed territory
+        const available=TERRITORIES.filter(t=>
+            !t.owner
+        );
+
+        if(available.length){
+
+            const t=
+
+            available[
+                Math.floor(
+                    Math.random()
+                    *
+                    available.length
+                )
+            ];
+
+            t.owner=d.username;
+
+            t.empireColor=d.empireColor;
+
+            t.population=1000;
+
+            t.treasury=500;
+
+            d.territoriesOwned++;
+
+            d.population+=1000;
+
+            d.treasury+=500;
+
+            popupOpen(
+
+            `🏆 YOU WIN!
+
+            <br><br>
+
+            🌍 Territory Captured
+
+            <br><br>
+
+            <b>${t.name}</b>
+
+            `);
+
+        }else{
+
+            popupOpen(
+
+            "🏆 YOU WIN!<br><br>All territories are already owned."
+
+            );
+
+        }
+
+    }else{
+
+        d.xp+=20;
+
+        popupOpen(
+
+        "💀 YOU LOSE!"
+
+        );
+
+    }
+
+    savePlayer();
+
+    render();
+
+    battle=null;
+
+}
+
+// ===============================
+// ⚔️ TEAM BATTLE UPGRADE (STEP 2)
+// ===============================
+
+// 📦 team battle state
+let teamBattle = null;
+
+// 🐉 get player team based on size
+function getPlayerTeam(size){
+
+    const team = [];
+
+    for (let i = 0; i < size; i++){
+
+        const name = d.dragons[i];
+        if (!name) break;
+
+        const dr = getDragonByName(name);
+        if (!dr) continue;
+
+        team.push(cloneDragon(dr));
+    }
+
+    return team;
+}
+
+// 🤖 AI team generator
+function getAITeam(size){
+
+    const pool = [...DRAGON_LIBRARY].sort(() => Math.random() - 0.5);
+
+    const team = [];
+
+    for (let i = 0; i < size; i++){
+        team.push(cloneDragon(pool[i]));
+    }
+
+    return team;
+}
+
+// ⚔️ start TEAM AI battle
+function startTeamBattleAI(size = 3){
+
+    const pTeam = getPlayerTeam(size);
+console.log(pTeam);
+    const eTeam = getAITeam(size);
+
+    if (pTeam.length === 0){
+        popupOpen("❌ No dragons available!");
+        return;
+    }
+
+    teamBattle = {
+        type: "TEAM_AI",
+        size: size,
+
+        playerTeam: pTeam,
+        enemyTeam: eTeam,
+
+        pIndex: 0,
+        eIndex: 0,
+
+        pHP: pTeam[0].hp,
+        eHP: eTeam[0].hp,
+
+        turn: "player"
+    };
+
+    openTeamUI();
+}
+
+// 🎮 TEAM UI
+function openTeamUI(){
+
+    const p = teamBattle.playerTeam[teamBattle.pIndex];
+    const e = teamBattle.enemyTeam[teamBattle.eIndex];
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h1>⚔️ TEAM BATTLE (${teamBattle.size}v${teamBattle.size})</h1>
+
+            <div style="display:flex;justify-content:space-around;margin-top:20px">
+
+                <div>
+                    <h2>🐉 YOU</h2>
+                    <div>${p.icon}</div>
+<div>
+    ${getAbilityButtons(p, true)}
+</div>
+                    <div id="pHP">HP: ${teamBattle.pHP}</div>
+                    <div>Dragon ${teamBattle.pIndex+1}/${teamBattle.playerTeam.length}</div>
+                </div>
+
+                <div>
+                    <h2>🔥 ENEMY</h2>
+                    <div>${e.icon}</div>
+<div>
+    ${getAbilityButtons(e, false)}
+</div>
+                    <div id="eHP">HP: ${teamBattle.eHP}</div>
+                    <div>Dragon ${teamBattle.eIndex+1}/${teamBattle.enemyTeam.length}</div>
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <button onclick="teamAttack()">⚔ ATTACK</button>
+
+        </div>
+    `);
+}
+
+// ⚔️ player attack
+function teamAttack(){
+
+    const p = teamBattle.playerTeam[teamBattle.pIndex];
+    teamBattle.eHP -= p.damage;
+
+    if (teamBattle.eHP <= 0){
+        nextEnemy();
+        return;
+    }
+
+    enemyTeamAttack();
+}
+
+// 🤖 enemy attack
+
+function enemyTeamAttack(){
+
+    // 🤖 AI now thinks instead of random attack
+    aiTakeTurn();
+}
+
+// 🔁 next enemy dragon
+function nextEnemy(){
+
+    teamBattle.eIndex++;
+
+    if (teamBattle.eIndex >= teamBattle.enemyTeam.length){
+        endTeamBattle(true);
+        return;
+    }
+
+    teamBattle.eHP = teamBattle.enemyTeam[teamBattle.eIndex].hp;
+
+    openTeamUI();
+}
+
+// 🔁 next player dragon
+function nextPlayer(){
+
+    teamBattle.pIndex++;
+
+    if (teamBattle.pIndex >= teamBattle.playerTeam.length){
+        endTeamBattle(false);
+        return;
+    }
+
+    teamBattle.pHP = teamBattle.playerTeam[teamBattle.pIndex].hp;
+
+    openTeamUI();
+}
+
+// 🔄 UI update
+function updateTeamUI(){
+
+    const p = document.getElementById("pHP");
+    const e = document.getElementById("eHP");
+
+    if (p) p.innerHTML = "HP: " + teamBattle.pHP;
+    if (e) e.innerHTML = "HP: " + teamBattle.eHP;
+}
+
+// 🏁 end battle
+function endTeamBattle(win){
+
+    if (win){
+        d.coins += 500;
+        d.xp += 120;
+        d.fish += 80;
+    } else {
+        d.xp += 40;
+    }
+
+    savePlayer();
+    render();
+
+    popupOpen(win ? "🏆 TEAM VICTORY!" : "💀 DEFEAT!");
+
+    teamBattle = null;
+}
+
+// ===============================
+// 🧠 ABILITY SYSTEM (STEP 3)
+// ===============================
+
+// ⚔️ use active dragon ability (basic version)
+function useAbility(index, isPlayer = true){
+
+    const side = isPlayer ? teamBattle.playerTeam : teamBattle.enemyTeam;
+    const enemy = isPlayer ? teamBattle.enemyTeam : teamBattle.playerTeam;
+
+    const attacker = side[isPlayer ? teamBattle.pIndex : teamBattle.eIndex];
+    const target = enemy[isPlayer ? teamBattle.eIndex : teamBattle.pIndex];
+
+    const ability = attacker.abilities[index];
+
+    if(!ability){
+        popupOpen("❌ Ability not found");
+        return;
+    }
+
+    // 🧠 SHOW EFFECT FIRST (important UX)
+    popupOpen(`
+        <div style="text-align:center">
+            <h2>✨ ${ability.name}</h2>
+            <p style="margin-top:10px">${ability.effect}</p>
+            <br>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    `);
+
+
+    // ⚔️ SIMPLE EFFECT ENGINE (basic interpretation)
+    applyAbilityEffect(ability, attacker, target, isPlayer);
+
+    updateTeamUI();
+}
+
+// 🧠 interpret ability effects (basic engine)
+function applyAbilityEffect(ability, attacker, target, isPlayer){
+
+    const text = ability.effect.toLowerCase();
+
+    // 🔥 damage types
+    if(text.includes("damage")){
+        const dmg = attacker.damage * 1.3;
+        target.hp -= dmg;
+    }
+
+    // ❤️ heal
+    if(text.includes("restore") || text.includes("heal")){
+        attacker.hp += attacker.hp * 0.2;
+    }
+
+    // 🛡 reduce damage (simple shield simulation)
+    if(text.includes("reduce")){
+        attacker.shield = (attacker.shield || 0) + 50;
+    }
+
+    // ⚡ buff attack
+    if(text.includes("increase attack")){
+        attacker.damage += 10;
+    }
+
+    // 🧊 freeze / disable
+    if(text.includes("freeze") || text.includes("disable")){
+        target.disabled = true;
+    }
+
+    // 🩸 steal HP
+    if(text.includes("steal")){
+        const steal = 30;
+        target.hp -= steal;
+        attacker.hp += steal;
+    }
+
+    // 🧠 check death
+    if(target.hp <= 0){
+
+        if(isPlayer){
+            nextEnemy();
+        } else {
+            nextPlayer();
+        }
+    }
+}
+
+// 🎮 add ability buttons to UI (PATCH into openTeamUI)
+function getAbilityButtons(dragon, isPlayer){
+
+    if(!dragon.abilities) return "";
+
+    return dragon.abilities.map((a, i) => `
+        <button
+            style="
+                display:block;
+                margin:5px auto;
+                padding:6px;
+                font-size:12px;
+                width:90%;
+            "
+            onclick="useAbility(${i}, ${isPlayer})"
+        >
+            ${a.name}
+        </button>
+    `).join("");
+}
+
+// ===============================
+// ⏳ ABILITY COOLDOWN SYSTEM (STEP 4)
+// ===============================
+
+// 🧠 initialize cooldown storage inside battle
+function initCooldowns(){
+    teamBattle.pCooldowns = [];
+    teamBattle.enemyCooldowns = [];
+
+    const size = teamBattle.size;
+
+    for(let i=0;i<size;i++){
+        teamBattle.pCooldowns[i] = [];
+        teamBattle.enemyCooldowns[i] = [];
+    }
+}
+
+// ⚔️ override openTeamUI (PATCH ADDITION ONLY)
+const oldOpenTeamUI = openTeamUI;
+
+openTeamUI = function(){
+
+    if(teamBattle && !teamBattle.playerCooldowns){
+        initCooldowns();
+    }
+
+    oldOpenTeamUI();
+}
+
+// 🧠 check if ability is usable
+function canUseAbility(index, isPlayer){
+
+    const cd = isPlayer
+        ? teamBattle.playerCooldowns
+        : teamBattle.enemyCooldowns;
+
+    return cd[index] === 0;
+}
+
+// ⏳ set cooldown after use
+function setCooldown(index, isPlayer, value = 2){
+
+    const cd = isPlayer
+        ? teamBattle.playerCooldowns
+        : teamBattle.enemyCooldowns;
+
+    cd[index] = value;
+}
+
+// 🔁 reduce cooldowns each turn
+function reduceCooldowns(){
+
+    if(!teamBattle) return;
+
+    const pcd = teamBattle.playerCooldowns;
+    const ecd = teamBattle.enemyCooldowns;
+
+    if(pcd){
+        for(let i=0;i<pcd.length;i++){
+            if(pcd[i] > 0) pcd[i]--;
+        }
+    }
+
+    if(ecd){
+        for(let i=0;i<ecd.length;i++){
+            if(ecd[i] > 0) ecd[i]--;
+        }
+    }
+}
+
+// ⚔️ PATCH: update useAbility (replace old logic inside ONLY cooldown part)
+const oldUseAbility = useAbility;
+
+useAbility = function(index, isPlayer){
+
+    if(!teamBattle) return;
+
+    const cd = isPlayer
+        ? teamBattle.playerCooldowns
+        : teamBattle.enemyCooldowns;
+
+    if(cd && cd[index] > 0){
+        popupOpen("⏳ Ability is on cooldown!");
+        return;
+    }
+
+    const attacker = isPlayer
+        ? teamBattle.playerTeam[teamBattle.pIndex]
+        : teamBattle.enemyTeam[teamBattle.eIndex];
+
+    const ability = attacker.abilities[index];
+
+    if(!ability){
+        popupOpen("❌ Invalid ability");
+        return;
+    }
+
+    // show effect first
+    popupOpen(`
+        <div style="text-align:center">
+            <h2>✨ ${ability.name}</h2>
+            <p>${ability.effect}</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    `);
+
+    // APPLY EFFECT
+    applyAbilityEffect(
+        ability,
+        attacker,
+        isPlayer
+            ? teamBattle.enemyTeam[teamBattle.eIndex]
+            : teamBattle.playerTeam[teamBattle.pIndex],
+        isPlayer
+    );
+
+    // SET COOLDOWN (IMPORTANT)
+    setCooldown(index, isPlayer, 3);
+
+    reduceCooldowns();
+    updateTeamUI();
+}
+
+// 🔥 PATCH BUTTON UI (replace getAbilityButtons)
+function getAbilityButtons(dragon, isPlayer){
+
+    const cd = isPlayer
+        ? teamBattle.playerCooldowns
+        : teamBattle.enemyCooldowns;
+
+    return dragon.abilities.map((a, i) => {
+
+        const locked = cd && cd[i] > 0;
+
+        return `
+            <button
+                onclick="useAbility(${i}, ${isPlayer})"
+                style="
+                    display:block;
+                    margin:5px auto;
+                    padding:6px;
+                    width:90%;
+                    font-size:12px;
+                    opacity:${locked ? 0.4 : 1};
+                "
+                ${locked ? "disabled" : ""}
+            >
+                ${a.name}
+                ${locked ? " ⏳ " + cd[i] : ""}
+            </button>
+        `;
+    }).join("");
+}
+
+// ===============================
+// 🤖 SMART AI SYSTEM (STEP 5)
+// ===============================
+
+// 🧠 check usable abilities for AI
+function getUsableAbilities(dragon){
+
+    const cd = teamBattle.enemyCooldowns;
+
+    const usable = [];
+
+    for(let i=0;i<dragon.abilities.length;i++){
+
+        if(!cd || cd[i] === 0){
+            usable.push(i);
+        }
+    }
+
+    return usable;
+}
+
+// ⚔️ AI TURN DECISION ENGINE
+function aiTakeTurn(){
+
+    const enemy = teamBattle.enemyTeam[teamBattle.eIndex];
+    const player = teamBattle.playerTeam[teamBattle.pIndex];
+
+    const usable = getUsableAbilities(enemy);
+
+    // 💀 PRIORITY 1: kill if possible
+    for(let i of usable){
+
+        const a = enemy.abilities[i];
+
+        if(a.effect.toLowerCase().includes("damage")){
+
+            const dmg = enemy.damage * 1.5;
+
+            if(dmg >= teamBattle.pHP){
+
+                useAbility(i, false);
+                return;
+            }
+        }
+    }
+
+    // ❤️ PRIORITY 2: heal if low HP
+    if(teamBattle.eHP < enemy.hp * 0.4){
+
+        for(let i of usable){
+
+            const a = enemy.abilities[i];
+
+            if(a.effect.toLowerCase().includes("restore") ||
+               a.effect.toLowerCase().includes("heal")){
+
+                useAbility(i, false);
+                return;
+            }
+        }
+    }
+
+    // ⚔️ PRIORITY 3: strongest damage ability
+    let best = null;
+
+    for(let i of usable){
+
+        const a = enemy.abilities[i];
+
+        if(a.effect.toLowerCase().includes("damage")){
+
+            best = i;
+            break;
+        }
+    }
+
+    if(best !== null){
+        useAbility(best, false);
+        return;
+    }
+
+    // 🪓 fallback: normal attack
+    enemyTeamAttack();
+}
+
+// ===============================
+// 🆚 PvP REQUEST SYSTEM (STEP 6)
+// ===============================
+
+// 📦 active PvP request storage
+let pvpRequest = null;
+
+// 📩 send battle request
+function sendBattleRequest(toPlayer, size = 3){
+
+    pvpRequest = {
+        from: d.username,
+        to: toPlayer,
+        size: size,
+        status: "pending"
+    };
+
+    popupOpen(
+        "📩 Battle Request Sent to " +
+        toPlayer +
+        "<br><br>Team Size: " +
+        size + "v" + size
+    );
+}
+
+// 📥 receive request (simulation for now)
+function receiveBattleRequest(from, size){
+
+    pvpRequest = {
+        from: from,
+        to: d.username,
+        size: size,
+        status: "incoming"
+    };
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h2>⚔️ PvP Battle Request</h2>
+
+            <p><b>${from}</b> challenged you!</p>
+
+            <p>Team Size: ${size}v${size}</p>
+
+            <br>
+
+            <button onclick="acceptBattleRequest()">✅ Accept</button>
+            <button onclick="rejectBattleRequest()">❌ Reject</button>
+
+        </div>
+    `);
+}
+
+// ✅ accept request
+function acceptBattleRequest(){
+
+    if(!pvpRequest) return;
+
+    startPvPBattle(pvpRequest.size);
+
+    pvpRequest.status = "accepted";
+}
+
+// ❌ reject request
+function rejectBattleRequest(){
+
+    pvpRequest = null;
+
+    popupOpen("❌ Battle Rejected");
+}
+
+// ⚔️ START PvP BATTLE (local simulation)
+
+function openTerritoryBattle(){
+
+    const available = TERRITORIES.filter(t=>!t.owner || t.owner!==d.username);
+
+    if(available.length===0){
+
+        Popup.success("🎉 You already control every territory!");
+
+        return;
+
+    }
+
+    let html="<h2>⚔ Territory Battle</h2>";
+
+    available.forEach(t=>{
+
+        html+=`
+        <button
+        style="width:100%;margin:6px 0"
+        onclick="startTerritoryBattle('${t.id}')">
+
+        🗺 ${t.name}
+        <br>
+        <small>${t.state}</small>
+
+        </button>
+        `;
+
+    });
+
+    popupOpen(html);
+
+}
+
+function startTerritoryBattle(id){
+
+    window.targetTerritory=id;
+
+    closePopup();
+
+    startBattleAI();
+
+}
+
+function startPvPBattle(size){
+
+    const pTeam = getPlayerTeam(size);
+console.log("Player dragons:", d.dragons);
+console.log("Battle team:", pTeam);
+
+    if(pTeam.length===0){
+
+        Popup.error(
+        "You need at least one dragon to battle!"
+        );
+
+        return;
+
+    }
+
+    const eTeam = getAITeam(size);
+    teamBattle = {
+        type: "PVP",
+        size: size,
+
+        playerTeam: pTeam,
+        enemyTeam: eTeam,
+
+        pIndex: 0,
+        eIndex: 0,
+
+        pHP: pTeam[0].hp,
+        eHP: eTeam[0].hp,
+
+        turn: "player"
+    };
+
+    openPvPUI();
+}
+
+// 🎮 PvP UI
+function openPvPUI(){
+
+    const p = teamBattle.playerTeam[teamBattle.pIndex];
+    const e = teamBattle.enemyTeam[teamBattle.eIndex];
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h1>🆚 PvP BATTLE</h1>
+
+            <h3>${teamBattle.size}v${teamBattle.size}</h3>
+
+            <div style="display:flex;justify-content:space-around;margin-top:20px">
+
+                <div>
+                    <h2>🐉 YOU</h2>
+                    <div>${p.icon}</div>
+                    <div id="pHP">HP: ${teamBattle.pHP}</div>
+                </div>
+
+                <div>
+                    <h2>🔥 OPPONENT</h2>
+                    <div>${e.icon}</div>
+                    <div id="eHP">HP: ${teamBattle.eHP}</div>
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <button onclick="teamAttackPvP()">⚔ ATTACK</button>
+
+        </div>
+    `);
+}
+
+// ⚔️ PvP attack (same engine as AI but separated for scaling)
+function teamAttackPvP(){
+
+    const p = teamBattle.playerTeam[teamBattle.pIndex];
+    teamBattle.eHP -= p.damage;
+
+    if(teamBattle.eHP <= 0){
+        nextEnemyPvP();
+        return;
+    }
+
+    enemyAttackPvP();
+}
+
+// 🤖 opponent attack
+function enemyAttackPvP(){
+
+    const e = teamBattle.enemyTeam[teamBattle.eIndex];
+    teamBattle.pHP -= e.damage;
+
+    if(teamBattle.pHP <= 0){
+        nextPlayerPvP();
+        return;
+    }
+
+    updateTeamUI();
+}
+
+// 🔁 next opponent dragon
+function nextEnemyPvP(){
+
+    teamBattle.eIndex++;
+
+    if(teamBattle.eIndex >= teamBattle.enemyTeam.length){
+        endPvP(true);
+        return;
+    }
+
+    teamBattle.eHP = teamBattle.enemyTeam[teamBattle.eIndex].hp;
+    openPvPUI();
+}
+
+// 🔁 next player dragon
+function nextPlayerPvP(){
+
+    teamBattle.pIndex++;
+
+    if(teamBattle.pIndex >= teamBattle.playerTeam.length){
+        endPvP(false);
+        return;
+    }
+
+    teamBattle.pHP = teamBattle.playerTeam[teamBattle.pIndex].hp;
+    openPvPUI();
+}
+
+// 🏁 end PvP
+function endPvP(win){
+
+    if(win){
+
+    d.coins+=200;
+    d.xp+=50;
+
+    if(window.targetTerritory){
+
+        captureTerritory(window.targetTerritory);
+
+        window.targetTerritory=null;
+
+    }
+
+}else{
+
+    d.xp+=20;
+
+}
+   
+
+    savePlayer();
+    render();
+
+    popupOpen(win ? "🏆 YOU WON PvP!" : "💀 YOU LOST PvP!");
+
+    teamBattle = null;
+    pvpRequest = null;
+}
+
+// ===============================
+// 🌐 ONLINE PvP ROOMS (STEP 7)
+// ===============================
+
+// 📦 active room state
+let currentRoom = null;
+
+// 🏗️ create battle room
+async function createBattleRoom(size){
+
+    const roomId = "room_" + Date.now();
+
+    const room = {
+        id: roomId,
+        host: d.username,
+        opponent: null,
+        size: size,
+        status: "waiting",
+        turn: d.username,
+        state: {
+            hostTeam: d.dragons.slice(0, size),
+            opponentTeam: []
+        }
+    };
+
+    const { error } = await supabaseClient
+        .from("battle_rooms")
+        .insert(room);
+
+    if(error){
+        popupOpen("❌ Failed to create room");
+        return;
+    }
+
+    currentRoom = room;
+
+    popupOpen(`
+        <div style="text-align:center">
+            <h2>🆚 Room Created</h2>
+            <p>Waiting for opponent...</p>
+            <br>
+            <b>Room ID:</b><br>${roomId}
+        </div>
+    `);
+
+    listenToRoom(roomId);
+}
+
+
+async function sendOnlineAttack(){
+
+    if(!requireTurn()) return;
+
+    const attacker = teamBattle.playerTeam[teamBattle.pIndex];
+    const newHP = teamBattle.eHP - attacker.damage;
+
+    const nextTurn = currentRoom.host === d.username
+        ? currentRoom.opponent
+        : currentRoom.host;
+
+    await supabaseClient
+        .from("battle_rooms")
+        .update({
+            turn: nextTurn,
+            state: {
+                ...currentRoom.state,
+                enemyHP: newHP
+            }
+        })
+        .eq("id", teamBattle.roomId);
+
+    teamBattle.eHP = newHP;
+    currentRoom.turn = nextTurn;
+
+    updateTeamUI();
+
+    if(teamBattle.eHP <= 0){
+        finishOnlineBattle(true);
+    }
+}
+
+
+// 🔍 join existing room
+async function joinBattleRoom(roomId){
+
+    const { data, error } = await supabaseClient
+        .from("battle_rooms")
+        .select("*")
+        .eq("id", roomId)
+        .single();
+
+    if(error || !data){
+        popupOpen("❌ Room not found");
+        return;
+    }
+
+    if(data.opponent){
+        popupOpen("❌ Room already full");
+        return;
+    }
+
+    const { error: updateError } = await supabaseClient
+        .from("battle_rooms")
+        .update({
+            opponent: d.username,
+            status: "ready",
+            "state.opponentTeam": d.dragons.slice(0, data.size)
+        })
+        .eq("id", roomId);
+
+    if(updateError){
+        popupOpen("❌ Failed to join room");
+        return;
+    }
+
+    currentRoom = data;
+
+    popupOpen("✅ Joined room! Battle starting...");
+
+    listenToRoom(roomId);
+}
+
+// 👁️ listen for room changes
+function listenToRoom(roomId){
+
+    supabaseClient
+        .channel("battle_" + roomId)
+        .on("postgres_changes", {
+            event: "*",
+            schema: "public",
+            table: "battle_rooms",
+            filter: "id=eq." + roomId
+        }, payload => {
+
+            handleRoomUpdate(payload.new);
+        })
+        .subscribe();
+}
+
+// 🔄 handle real-time updates
+function handleRoomUpdate(room){
+
+    if(!room) return;
+
+    currentRoom = room;
+
+    if(room.state && teamBattle && teamBattle.type === "ONLINE_PVP"){
+
+        teamBattle.eHP = room.state.enemyHP ?? teamBattle.eHP;
+        teamBattle.pHP = room.state.playerHP ?? teamBattle.pHP;
+
+        updateTeamUI();
+    }
+
+    if(room.status === "ready" && !teamBattle){
+        startOnlineBattle(room);
+    }
+
+// ⚔️ start real online battle
+function startOnlineBattle(room){
+
+    const size = room.size;
+
+    const pTeam = room.host === d.username
+        ? room.state.hostTeam
+        : room.state.opponentTeam;
+
+    const eTeam = room.host === d.username
+        ? room.state.opponentTeam
+        : room.state.hostTeam;
+
+    teamBattle = {
+        type: "ONLINE_PVP",
+        roomId: room.id,
+
+        size: size,
+
+        playerTeam: pTeam.map(getDragonByName),
+        enemyTeam: eTeam.map(getDragonByName),
+
+        pIndex: 0,
+        eIndex: 0,
+
+        pHP: getDragonByName(pTeam[0]).hp,
+        eHP: getDragonByName(eTeam[0]).hp,
+
+        turn: room.turn
+    };
+
+    openOnlineUI();
+}
+
+// 🎮 online UI
+function openOnlineUI(){
+
+    const p = teamBattle.playerTeam[teamBattle.pIndex];
+    const e = teamBattle.enemyTeam[teamBattle.eIndex];
+
+    popupOpen(`
+        <div style="text-align:center">
+
+            <h1>🌐 ONLINE PvP</h1>
+
+            <h3>${teamBattle.size}v${teamBattle.size}</h3>
+
+            <div style="display:flex;justify-content:space-around;margin-top:20px">
+
+                <div>
+                    <h2>🐉 YOU</h2>
+                    <div>${p.icon}</div>
+                    <div>HP: ${teamBattle.pHP}</div>
+                </div>
+
+                <div>
+                    <h2>🔥 OPPONENT</h2>
+                    <div>${e.icon}</div>
+                    <div>HP: ${teamBattle.eHP}</div>
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <button onclick="sendOnlineAttack()">⚔ ATTACK</button>
+
+        </div>
+    `);
+}
+
+
+// ===============================
+// ⚔️ REAL TIME BATTLE ENGINE (STEP 8)
+// ===============================
+
+// 🧠 check if it's your turn (ONLINE ONLY)
+function isMyTurn(){
+
+    if(!teamBattle || teamBattle.type !== "ONLINE_PVP") return true;
+
+    return currentRoom.turn === d.username;
+}
+
+// 🚫 block actions if not your turn
+function requireTurn(){
+
+    if(!isMyTurn()){
+        popupOpen("⏳ Not your turn!");
+        return false;
+    }
+
+    return true;
+}
+
+// ⚔️ SAFE ONLINE ATTACK (REPLACE OLD sendOnlineAttack LOGIC)
+async function sendOnlineAttack(){
+
+    if(!requireTurn()) return;
+
+    const attacker =
+    teamBattle.playerTeam[
+        teamBattle.pIndex
+    ];
+
+    if(!attacker)
+    return;
+
+    const newHP =
+    Math.max(
+        0,
+        teamBattle.eHP -
+        attacker.damage
+    );
+
+    const nextTurn =
+    currentRoom.host === d.username
+    ?
+    currentRoom.opponent
+    :
+    currentRoom.host;
+
+    await supabaseClient
+    .from("battle_rooms")
+    .update({
+
+        turn: nextTurn,
+
+        state: {
+
+            ...(currentRoom.state || {}),
+
+            enemyHP: newHP
+
+        }
+
+    })
+    .eq(
+        "id",
+        teamBattle.roomId
+    );
+
+    teamBattle.eHP =
+    newHP;
+
+    currentRoom.turn =
+    nextTurn;
+
+    if(
+        typeof updateCooldowns
+        ===
+        "function"
+    ){
+        updateCooldowns();
+    }
+
+    updateTeamUI();
+
+    if(
+        teamBattle.eHP <= 0
+    ){
+
+        finishOnlineBattle(
+            true
+        );
+
+    }
+
+}
+
+
+
+    // ⚔️ start battle when ready
+    if(room.status === "ready" && !teamBattle){
+
+        startOnlineBattle(room);
+    }
+}
+
+// 🏁 proper online finish system
+async function finishOnlineBattle(win){
+
+    const reward = win ? {
+        coins: 800,
+        xp: 200,
+        fish: 150,
+        diamonds: 25
+    } : {
+        xp: 80
+    };
+
+    d.coins += reward.coins || 0;
+    d.xp += reward.xp || 0;
+    d.fish += reward.fish || 0;
+    d.diamonds += reward.diamonds || 0;
+
+    savePlayer();
+    render();
+
+    popupOpen(win ? "🏆 ONLINE WIN!" : "💀 ONLINE LOSS");
+
+    // 🧠 close room safely
+    await supabaseClient
+        .from("battle_rooms")
+        .update({
+            status: "finished"
+        })
+        .eq("id", teamBattle.roomId);
+
+    teamBattle = null;
+    currentRoom = null;
+}
+
+// 🔒 PATCH UI BUTTON (IMPORTANT)
+// Replace attack button in openOnlineUI with:
+function getOnlineAttackButton(){
+
+    return `
+        <button onclick="sendOnlineAttack()">
+            ⚔ ATTACK
+        </button>
+    `;
+}
+// ===============================
+// 🧠 ONLINE ABILITY SYSTEM (STEP 9)
+// ===============================
+
+
+
+// ⚔️ USE ABILITY (ONLINE SAFE)
+async function useOnlineAbility(index){
+
+    if(!requireTurn()) return;
+
+    const dragon = teamBattle.playerTeam[teamBattle.pIndex];
+    const ability = dragon.abilities[index];
+
+    if(!ability) return;
+
+    // 🧊 cooldown check
+    if(teamBattle.pCooldowns[teamBattle.pIndex][index] > 0){
+        popupOpen("⏳ Ability on cooldown!");
+        return;
+    }
+
+    let damage = dragon.damage;
+
+    // 🧠 simple effect parsing
+    if(ability.effect.toLowerCase().includes("damage")){
+        damage *= 1.5;
+    }
+
+    if(ability.effect.toLowerCase().includes("heal")){
+        teamBattle.pHP += 80;
+    }
+
+    const newHP = teamBattle.eHP - damage;
+
+    // 🧠 set cooldown (2 turns default)
+    teamBattle.pCooldowns[teamBattle.pIndex][index] = 2;
+
+    const nextTurn = currentRoom.host === d.username
+        ? currentRoom.opponent
+        : currentRoom.host;
+
+    await supabaseClient
+        .from("battle_rooms")
+        .update({
+            turn: nextTurn,
+            state: {
+                ...currentRoom.state,
+                enemyHP: newHP
+            }
+        })
+        .eq("id", teamBattle.roomId);
+
+    teamBattle.eHP = newHP;
+    currentRoom.turn = nextTurn;
+
+    updateCooldowns();
+    updateTeamUI();
+
+    if(teamBattle.eHP <= 0){
+        finishOnlineBattle(true);
+    }
+}
+// ===============================
+// ⏳ COOLDOWN SYSTEM
+// ===============================
+
+// 🔁 reduce cooldowns every turn
+function updateCooldowns(){
+
+    for(let i=0;i<teamBattle.pCooldowns[teamBattle.pIndex].length;i++){
+
+        if(teamBattle.pCooldowns[teamBattle.pIndex][i] > 0){
+            teamBattle.pCooldowns[teamBattle.pIndex][i]--;
+        }
+    }
+
+    for(let i=0;i<teamBattle.eCooldowns[teamBattle.eIndex].length;i++){
+
+        if(teamBattle.eCooldowns[teamBattle.eIndex][i] > 0){
+            teamBattle.eCooldowns[teamBattle.eIndex][i]--;
+        }
+    }
+}
+// ===============================
+// 🔍 MATCHMAKING SYSTEM
+// ===============================
+
+
+
+    // 🧠 create new room if none found
+
+async function findOpponent(size){
+
+    popupOpen("🔍 Searching for opponent.");
+
+    let { data } =
+    await supabaseClient
+    .from("battle_rooms")
+    .select("*")
+    .eq("status","waiting")
+    .eq("size",size)
+    .limit(1)
+    .single();
+
+    if(data){
+
+        await joinBattleRoom(data.id);
+
+        return;
+    }
+
+    await createBattleRoom(size);
+
+}
+
+
+
+document.getElementById("feedbackBtn").onclick = function(){
+
+    popupOpen(`
+
+    <div style="text-align:center">
+
+        <h2>💡 Suggest / 🐛 Report Bug</h2>
+
+        <select id="fbType">
+
+            <option value="suggestion">
+                Suggestion
+            </option>
+
+            <option value="bug">
+                Bug Report
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <textarea
+            id="fbMsg"
+            style="
+                width:90%;
+                height:120px;
+                padding:10px;
+            "
+        ></textarea>
+
+        <br><br>
+
+        <button onclick="submitFeedback()">
+            Send
+        </button>
+
+    </div>
+
+    `);
+
+};
+
+
+
+async function submitFeedback(){
+
+    const type =
+    document.getElementById("fbType").value;
+
+    const message =
+    document
+    .getElementById("fbMsg")
+    .value
+    .trim();
+
+    if(!message){
+
+        popupOpen(
+        "❌ Message cannot be empty"
+        );
+
+        return;
+    }
+
+    const { error } =
+    await supabaseClient
+    .from("suggestions")
+    .insert([{
+
+        username:d.username,
+
+        type,
+
+        message
+
+    }]);
+
+    if(error){
+
+        popupOpen(
+        "❌ Failed to send feedback"
+        );
+
+        return;
+    }
+
+    popupOpen(
+    "✅ Feedback sent successfully!"
+    );
+
+}
+
+</script>
+<script src="map.js"></script>
+</body>
+</html>
